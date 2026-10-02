@@ -309,7 +309,6 @@
       display: flex;
       gap: 16px;
       overflow-x: auto;
-      scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       cursor: grab;
       scrollbar-width: none; /* Ẩn thanh cuộn xấu */
@@ -1033,44 +1032,107 @@
         container.appendChild(frame);
       }
 
-      // HỖ TRỢ VUỐT / DRAG BẰNG CHUỘT TRÊN MÁY TÍNH
+      // HỖ TRỢ VUỐT / DRAG BẰNG CHUỘT VÀ TAY TRÊN ĐIỆN THOẠI
       let isDown = false;
-      let startX, scrollLeft;
+      let startX = 0;
+      let startScrollLeft = 0;
+      let scrollPos = 0;
+      let resumeTimeout = null;
+
+      function pauseRoll() {
+        vintageAutoRoll = false;
+        if (resumeTimeout) clearTimeout(resumeTimeout);
+      }
+
+      function scheduleResume(delay = 1000) {
+        if (resumeTimeout) clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          scrollPos = container.scrollLeft;
+          vintageAutoRoll = true;
+        }, delay);
+      }
 
       container.addEventListener('mousedown', (e) => {
         isDown = true;
-        vintageAutoRoll = false;
+        pauseRoll();
         startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
+        startScrollLeft = container.scrollLeft;
+        container.style.cursor = 'grabbing';
       });
-      container.addEventListener('mouseleave', () => { 
-        isDown = false; 
-        vintageAutoRoll = true;
+
+      window.addEventListener('mouseup', () => {
+        if (isDown) {
+          isDown = false;
+          container.style.cursor = 'grab';
+          scheduleResume(800);
+        }
       });
-      container.addEventListener('mouseup', () => { 
-        isDown = false; 
-        vintageAutoRoll = true;
-      });
+
       container.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 1.6;
-        container.scrollLeft = scrollLeft - walk;
+        const walk = (x - startX) * 1.5;
+        container.scrollLeft = startScrollLeft - walk;
+        scrollPos = container.scrollLeft;
       });
 
-      // Tạm dừng khi chạm vuốt trên điện thoại, buông ra lại tự động chạy
-      container.addEventListener('touchstart', () => { vintageAutoRoll = false; }, { passive: true });
-      container.addEventListener('touchend', () => { 
-        setTimeout(() => { vintageAutoRoll = true; }, 1200); 
+      // Tương tác chạm trên điện thoại
+      container.addEventListener('touchstart', () => {
+        pauseRoll();
       }, { passive: true });
 
-      // CƠ CHẾ LUÔN CHẠY ROLL NGANG LIÊN TỤC VÔ TẬN
+      container.addEventListener('touchmove', () => {
+        scrollPos = container.scrollLeft;
+      }, { passive: true });
+
+      container.addEventListener('touchend', () => {
+        scheduleResume(1200);
+      }, { passive: true });
+
+      container.addEventListener('scroll', () => {
+        if (!vintageAutoRoll) {
+          scrollPos = container.scrollLeft;
+        }
+      }, { passive: true });
+
+      // Tự động nhân bản các khung ảnh sau khi tải xong để tạo vòng cuộn vô tận mượt mà
+      setTimeout(() => {
+        const frames = Array.from(container.children);
+        if (frames.length > 0 && container.dataset.cloned !== 'true') {
+          container.dataset.cloned = 'true';
+          frames.forEach(f => {
+            const clone = f.cloneNode(true);
+            const cloneImg = clone.querySelector('img');
+            clone.addEventListener('click', () => {
+              if (cloneImg) openLightbox(cloneImg.currentSrc || cloneImg.src);
+            });
+            container.appendChild(clone);
+          });
+        }
+      }, 2000);
+
+      // CƠ CHẾ CHẠY ROLL NGANG LIÊN TỤC VÔ TẬN (ĐÃ KHẮC PHỤC TRIỆT ĐỂ LỖI KẸT ĐỨNG IM)
       function autoRollLoop() {
         if (vintageAutoRoll && container) {
-          container.scrollLeft += 0.9; // Tốc độ trôi êm ái
-          if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 2) {
-            container.scrollLeft = 0; // Quay lại đầu khi chạm mốc cuối
+          const halfWidth = container.scrollWidth / 2;
+          if (container.dataset.cloned === 'true' && halfWidth > container.clientWidth) {
+            scrollPos += 1.2;
+            if (scrollPos >= halfWidth) {
+              scrollPos -= halfWidth;
+              container.scrollLeft = scrollPos;
+            } else {
+              container.scrollLeft = Math.round(scrollPos);
+            }
+          } else {
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            if (maxScroll > 10) {
+              scrollPos += 1.2;
+              if (scrollPos >= maxScroll - 2) {
+                scrollPos = 0;
+              }
+              container.scrollLeft = Math.round(scrollPos);
+            }
           }
         }
         requestAnimationFrame(autoRollLoop);
@@ -1337,6 +1399,58 @@
         if (tonearm) tonearm.classList.remove('active'); // Nhấc cần gạt kim ra khỏi đĩa
       }
     }
+
+    // ==============================================
+    // XỬ LÝ TẮT HẲN NHẠC KHI THOÁT TRANG / ĐÓNG WEB TRÊN MESSENGER, ZALO, TRÌNH DUYỆT
+    // ==============================================
+    let wasPlayingBeforeHidden = false;
+
+    function pauseAllMedia() {
+      if (bgMusic && !bgMusic.paused) {
+        bgMusic.pause();
+      }
+      document.querySelectorAll('video, audio').forEach(media => {
+        if (!media.paused) media.pause();
+      });
+      setMusicPlayingState(false);
+    }
+
+    // Khi người dùng bấm nút 'X' đóng web, ẩn tab, hoặc chuyển sang app khác trong Messenger
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        wasPlayingBeforeHidden = isPlaying;
+        pauseAllMedia();
+      } else if (wasPlayingBeforeHidden) {
+        // Tự động phát lại khi người dùng quay lại đúng màn hình thiệp cưới
+        if (bgMusic) {
+          bgMusic.volume = 0.25;
+          bgMusic.play().then(() => {
+            setMusicPlayingState(true);
+          }).catch(() => {});
+        }
+      }
+    });
+
+    // Bắt sự kiện thoát WebView của Messenger, Zalo, Safari, Chrome trên điện thoại
+    window.addEventListener('pagehide', () => {
+      wasPlayingBeforeHidden = false;
+      pauseAllMedia();
+    });
+
+    window.addEventListener('freeze', () => {
+      wasPlayingBeforeHidden = false;
+      pauseAllMedia();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      wasPlayingBeforeHidden = false;
+      pauseAllMedia();
+    });
+
+    window.addEventListener('unload', () => {
+      wasPlayingBeforeHidden = false;
+      pauseAllMedia();
+    });
 
     // Tự động cuộn từ từ mượt mà
     let autoScrollActive = false;

@@ -300,7 +300,7 @@
   <!-- ============================================== -->
   <!-- 2. GÓC TRÊN TRÁI: ĐĨA NHẠC -->
   <!-- ============================================== -->
-  <div class="fixed top-3 left-3 z-50">
+<div class="fixed top-3 left-3 z-[105]">
     <button id="musicToggle" class="w-10 h-10 rounded-full bg-wedding-red/90 text-white flex items-center justify-center shadow-xl border border-wedding-gold hover:scale-105 transition-all">
       <i id="musicIcon" class="fa-solid fa-compact-disc text-base spinning"></i>
     </button>
@@ -312,7 +312,7 @@
   <!-- ============================================== -->
   <!-- 3. GÓC TRÊN PHẢI: PHONG BÌ DỌC MỪNG CƯỚI -->
   <!-- ============================================== -->
-  <div class="fixed top-3 right-3 z-50">
+<div class="fixed top-3 right-3 z-[105]">
     <button id="floatingGiftBtn" class="wiggle-pause-animate flex flex-col items-center justify-center bg-white/95 backdrop-blur-md px-2.5 py-1.5 rounded-xl shadow-2xl border border-wedding-gold hover:scale-105 transition-all">
       <!-- Icon Phong Bì Dọc -->
       <div class="w-6 h-8 bg-wedding-red rounded-sm relative border border-red-800 shadow-sm flex items-center justify-center overflow-hidden">
@@ -325,7 +325,7 @@
   </div>
 
   <!-- POPUP THIỆP MỪNG CƯỚI DỌC & TẢI XUỐNG TRỰC TIẾP (KHÔNG CÓ SỐ TIỀN) -->
-  <div id="giftModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs hidden">
+<div id="giftModal" class="fixed inset-0 z-[130] flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm hidden">
     <div class="bg-gradient-to-b from-wedding-cream via-white to-wedding-cream w-full max-w-xs md:max-w-sm rounded-3xl p-6 text-center relative border-2 border-wedding-gold shadow-2xl animate-fade">
       <button id="closeGiftModal" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center font-bold hover:bg-gray-200">✕</button>
 
@@ -979,10 +979,31 @@ function updateQrContent() {
       document.getElementById('openBankDeepLinkBtn').href = `https://dl.vietqr.io/pay?app=vcb&ba=1018861099@vcb&tn=${encodeURIComponent(memo)}`;
     }
 
-    document.getElementById('floatingGiftBtn').addEventListener('click', () => {
-      updateQrContent();
-      giftModal.classList.remove('hidden');
-    });
+const floatingGiftBtn = document.getElementById('floatingGiftBtn');
+    const closeGiftModal = document.getElementById('closeGiftModal');
+
+    if (floatingGiftBtn) {
+      floatingGiftBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        updateQrContent();
+        giftModal.classList.remove('hidden');
+      });
+    }
+
+    if (closeGiftModal) {
+      closeGiftModal.addEventListener('click', () => {
+        giftModal.classList.add('hidden');
+      });
+    }
+
+    if (giftModal) {
+      giftModal.addEventListener('click', (e) => {
+        if (e.target === giftModal) {
+          giftModal.classList.add('hidden');
+        }
+      });
+    }
     document.getElementById('closeGiftModal').addEventListener('click', () => {
       giftModal.classList.add('hidden');
     });

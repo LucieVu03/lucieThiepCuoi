@@ -156,33 +156,36 @@
       animation: wiggle-pause 3s infinite;
     }
 
-    /* MÁY ĐĨA THAN VINYL CÓ CẦN GẠT (TONEARM) */
+    /* MÁY ĐĨA THAN VINYL CÓ CẦN GẠT (TONEARM) - HÌNH TRÒN, ĐỘ TRONG SUỐT 50% */
     .turntable-box {
-      width: 46px;
-      height: 46px;
-      background: linear-gradient(135deg, #3a2e2b 0%, #201816 100%);
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(circle, #7D0B14 20%, #151515 22%, #2a2a2a 40%, #111111 60%, #333333 80%, #0d0d0d 100%);
       border: 1.5px solid #C5A059;
-      border-radius: 12px;
+      border-radius: 50%;
       position: relative;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+    .turntable-box:hover {
+      opacity: 0.85;
     }
     .vinyl-disc {
-      width: 32px;
-      height: 32px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      background: radial-gradient(circle, #7D0B14 20%, #151515 22%, #2a2a2a 40%, #111111 60%, #333333 80%, #0d0d0d 100%);
-      box-shadow: 0 0 5px rgba(0,0,0,0.8);
       position: absolute;
-      top: 6px;
-      left: 6px;
+      top: 0;
+      left: 0;
     }
     .tonearm {
       position: absolute;
-      top: 4px;
-      right: 5px;
-      width: 14px;
-      height: 24px;
-      transform-origin: 10px 4px;
+      top: 3px;
+      right: 4px;
+      width: 13px;
+      height: 22px;
+      transform-origin: 9px 3px;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       transform: rotate(-35deg); /* vị trí nghỉ khi dừng */
       pointer-events: none;
@@ -427,10 +430,10 @@
   <!-- 2. GÓC TRÊN TRÁI: MÁY ĐĨA THAN VINYL CÓ CẦN GẠT -->
   <!-- ============================================== -->
   <div id="musicContainer" class="fixed top-3 left-3 z-[105] opacity-0 pointer-events-none transition-all duration-700">
-    <button id="musicToggle" class="turntable-box cursor-pointer flex items-center justify-center group" title="Bật/Tắt nhạc">
+    <button id="musicToggle" class="turntable-box cursor-pointer flex items-center justify-center group overflow-hidden" title="Bật/Tắt nhạc">
       <!-- Đĩa than xoay -->
       <div id="musicDisc" class="vinyl-disc">
-        <div class="absolute inset-0 m-auto w-2 h-2 rounded-full bg-wedding-gold border border-black"></div>
+        <div class="absolute inset-0 m-auto w-2.5 h-2.5 rounded-full bg-wedding-gold border border-black"></div>
       </div>
       <!-- Cần gạt kim đĩa than (Tonearm) -->
       <svg id="tonearm" class="tonearm" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -618,34 +621,11 @@
       <h2 class="font-script text-4xl text-wedding-red mb-1">Album Cưới 3D</h2>
       <div class="w-12 h-0.5 bg-wedding-gold mx-auto mb-4"></div>
 
-      <!-- Slider 3D Coverflow mượt mà -->
+      <!-- Slider 3D Coverflow nạp toàn bộ ảnh TUYEN_LAN_ -->
       <div class="relative w-full mx-auto">
         <div class="swiper swiper-3d-gallery">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_1.jpg" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+1'" class="w-full h-full object-cover" alt="Album 1">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_7.jpg" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+2'" class="w-full h-full object-cover" alt="Album 2">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_8.JPG" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+3'" class="w-full h-full object-cover" alt="Album 3">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_10.JPG" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+4'" class="w-full h-full object-cover" alt="Album 4">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_11.JPG" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+5'" class="w-full h-full object-cover" alt="Album 5">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_12.JPG" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+6'" class="w-full h-full object-cover" alt="Album 6">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_4.jpg" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+7'" class="w-full h-full object-cover" alt="Album 7">
-            </div>
-            <div class="swiper-slide">
-              <img src="./TUYEN_LAN_5.jpg" onerror="this.src='https://placehold.co/300x400/FBF7F0/7D0B14?text=Ảnh+Cưới+8'" class="w-full h-full object-cover" alt="Album 8">
-            </div>
+          <div class="swiper-wrapper" id="tuyenLan3DWrapper">
+            <!-- Toàn bộ ảnh TUYEN_LAN_ sẽ được tự động tải song song và hiển thị tại đây -->
           </div>
 
           <!-- Nút chuyển slide 2 bên -->
@@ -919,6 +899,40 @@
     }
 
     // ==============================================
+    // 0. TẢI TRƯỚC TOÀN BỘ ẢNH SONG SONG NGAY TỪ ĐẦU (PARALLEL PRELOAD)
+    // ==============================================
+    function preloadAllImagesImmediately() {
+      const urlsToPreload = [];
+
+      // 1. Quét nạp ảnh TUYEN_LAN_ (từ 1 đến 25, cả đuôi .jpg và .JPG)
+      for (let i = 1; i <= 25; i++) {
+        urlsToPreload.push(`./TUYEN_LAN_${i}.jpg`, `./TUYEN_LAN_${i}.JPG`);
+      }
+
+      // 2. Quét nạp ảnh Vintage_ (từ 001 đến 055)
+      for (let i = 1; i <= 55; i++) {
+        const num3 = String(i).padStart(3, '0');
+        urlsToPreload.push(`./Vintage_${num3}.jpg`, `./Vintage_${i}.jpg`);
+      }
+
+      // 3. Quét nạp ảnh NK_ (từ 001 đến 025)
+      for (let i = 1; i <= 25; i++) {
+        const num3 = String(i).padStart(3, '0');
+        const num2 = String(i).padStart(2, '0');
+        urlsToPreload.push(`./NK_${num3}.jpg`, `./NK_${num3}.JPG`, `./NK_${num2}.jpg`, `./NK_${i}.jpg`, `./NK_${i}.JPG`);
+      }
+
+      // Kích hoạt nạp đồng thời vào bộ nhớ đệm (Browser Cache)
+      urlsToPreload.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+
+    // Chạy tải song song ngay lập tức khi file script bắt đầu thực thi
+    preloadAllImagesImmediately();
+
+    // ==============================================
     // 4. LIGHTBOX XEM ẢNH PHÓNG TO KHI CHẠM VÀO ẢNH BẤT KỲ
     // ==============================================
     const imageLightbox = document.getElementById('imageLightbox');
@@ -971,8 +985,10 @@
     setTimeout(attachLightboxToImages, 1000);
 
     // ==============================================
-    // 1. TỰ ĐỘNG NẠP CUỘN PHIM VINTAGE_ & HỖ TRỢ VUỐT CUỘN ROLL NGANG BẰNG TAY
+    // 1. TỰ ĐỘNG NẠP CUỘN PHIM VINTAGE_ & LUÔN CHẠY ROLL NGANG LIÊN TỤC
     // ==============================================
+    let vintageAutoRoll = true;
+
     function initVintageFilmStrip() {
       const container = document.getElementById('vintageFilmContainer');
       if (!container) return;
@@ -990,7 +1006,7 @@
 
         const img = document.createElement('img');
         img.alt = `Hai đứa iu nhao ${num3}`;
-        img.loading = 'lazy';
+        img.loading = 'eager';
 
         img.onerror = function() {
           if (!this.dataset.fallbackTried) {
@@ -1023,21 +1039,138 @@
 
       container.addEventListener('mousedown', (e) => {
         isDown = true;
+        vintageAutoRoll = false;
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
       });
-      container.addEventListener('mouseleave', () => { isDown = false; });
-      container.addEventListener('mouseup', () => { isDown = false; });
+      container.addEventListener('mouseleave', () => { 
+        isDown = false; 
+        vintageAutoRoll = true;
+      });
+      container.addEventListener('mouseup', () => { 
+        isDown = false; 
+        vintageAutoRoll = true;
+      });
       container.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 1.6; // Tốc độ trượt theo tay
+        const walk = (x - startX) * 1.6;
         container.scrollLeft = scrollLeft - walk;
       });
+
+      // Tạm dừng khi chạm vuốt trên điện thoại, buông ra lại tự động chạy
+      container.addEventListener('touchstart', () => { vintageAutoRoll = false; }, { passive: true });
+      container.addEventListener('touchend', () => { 
+        setTimeout(() => { vintageAutoRoll = true; }, 1200); 
+      }, { passive: true });
+
+      // CƠ CHẾ LUÔN CHẠY ROLL NGANG LIÊN TỤC VÔ TẬN
+      function autoRollLoop() {
+        if (vintageAutoRoll && container) {
+          container.scrollLeft += 0.9; // Tốc độ trôi êm ái
+          if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 2) {
+            container.scrollLeft = 0; // Quay lại đầu khi chạm mốc cuối
+          }
+        }
+        requestAnimationFrame(autoRollLoop);
+      }
+      requestAnimationFrame(autoRollLoop);
     }
 
     initVintageFilmStrip();
+
+    // ==============================================
+    // 2. TỰ ĐỘNG NẠP TOÀN BỘ ẢNH TUYEN_LAN_ VÀO ALBUM 3D
+    // ==============================================
+    let swiper3DInstance = null;
+
+    function init3DAlbum() {
+      const wrapper = document.getElementById('tuyenLan3DWrapper');
+      if (!wrapper) return;
+
+      const maxScan = 30;
+      let scanned = 0;
+      const foundPhotos = [];
+
+      function setup3DSwiper() {
+        if (foundPhotos.length === 0) {
+          // Dự phòng nếu chưa kịp tìm thấy ảnh
+          for (let k = 1; k <= 8; k++) {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            slide.innerHTML = `<img src="./TUYEN_LAN_${k}.jpg" onerror="this.src='./TUYEN_LAN_${k}.JPG'" class="w-full h-full object-cover" alt="Album ${k}">`;
+            wrapper.appendChild(slide);
+          }
+        } else {
+          foundPhotos.sort((a, b) => a.index - b.index);
+          foundPhotos.forEach(item => wrapper.appendChild(item.slide));
+        }
+
+        // Khởi tạo Swiper 3D Coverflow với toàn bộ ảnh TUYEN_LAN_
+        if (typeof Swiper !== 'undefined') {
+          swiper3DInstance = new Swiper(".swiper-3d-gallery", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: wrapper.children.length > 2,
+            autoplay: { delay: 3500, disableOnInteraction: false },
+            coverflowEffect: {
+              rotate: 15,
+              stretch: 0,
+              depth: 220,
+              modifier: 1,
+              slideShadows: true
+            },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            pagination: { el: ".swiper-pagination", type: "fraction" }
+          });
+        }
+        attachLightboxToImages();
+      }
+
+      for (let i = 1; i <= maxScan; i++) {
+        const testImg = new Image();
+        const srcJpg = `./TUYEN_LAN_${i}.jpg`;
+        const srcJPG = `./TUYEN_LAN_${i}.JPG`;
+
+        testImg.onload = function() {
+          const slide = document.createElement('div');
+          slide.className = 'swiper-slide';
+          slide.innerHTML = `<img src="${this.src}" class="w-full h-full object-cover" alt="Album Mạnh Tuyên & Hoàng Lan ${i}">`;
+          foundPhotos.push({ index: i, slide: slide });
+          scanned++;
+          if (scanned >= maxScan) setup3DSwiper();
+        };
+
+        testImg.onerror = function() {
+          // Thử đuôi viết hoa nếu .jpg không thấy
+          const fallbackImg = new Image();
+          fallbackImg.onload = function() {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            slide.innerHTML = `<img src="${this.src}" class="w-full h-full object-cover" alt="Album Mạnh Tuyên & Hoàng Lan ${i}">`;
+            foundPhotos.push({ index: i, slide: slide });
+            scanned++;
+            if (scanned >= maxScan) setup3DSwiper();
+          };
+          fallbackImg.onerror = function() {
+            scanned++;
+            if (scanned >= maxScan) setup3DSwiper();
+          };
+          fallbackImg.src = srcJPG;
+        };
+
+        testImg.src = srcJpg;
+      }
+
+      setTimeout(() => {
+        if (!swiper3DInstance) setup3DSwiper();
+      }, 1200);
+    }
+
+    init3DAlbum();
 
     // ==============================================
     // 3. NHẬT KÝ YÊU THƯƠNG: HIỆU ỨNG LẬT TRANG SÁCH 3D (FLIP)
@@ -1186,12 +1319,12 @@
     const musicContainer = document.getElementById('musicContainer');
     let isPlaying = false;
 
-    // Cài đặt âm lượng khoảng 50% cho nhạc nền và các thẻ media/video (nếu có)
+    // Cài đặt âm lượng khoảng 25% cho nhạc nền và các thẻ media/video (nếu có)
     if (bgMusic) {
-      bgMusic.volume = 0.5;
+      bgMusic.volume = 0.25;
     }
     document.querySelectorAll('video').forEach(v => {
-      v.volume = 0.5;
+      v.volume = 0.25;
     });
 
     function setMusicPlayingState(playing) {
@@ -1278,9 +1411,9 @@
           }
         }, 700);
 
-        // Bật nhạc nền với âm lượng 50%
+        // Bật nhạc nền với âm lượng 25%
         if (bgMusic) {
-          bgMusic.volume = 0.5;
+          bgMusic.volume = 0.25;
           bgMusic.play().then(() => {
             setMusicPlayingState(true);
           }).catch(() => {});
@@ -1301,7 +1434,7 @@
           bgMusic.pause();
           setMusicPlayingState(false);
         } else {
-          bgMusic.volume = 0.5;
+          bgMusic.volume = 0.25;
           bgMusic.play();
           setMusicPlayingState(true);
         }
@@ -1406,29 +1539,6 @@
           btn.innerHTML = originalHtml;
           btn.disabled = false;
         }, 2500);
-      });
-    }
-
-    // ==============================================
-    // SWIPER 3D ALBUM
-    // ==============================================
-    if (typeof Swiper !== 'undefined') {
-      new Swiper(".swiper-3d-gallery", {
-        effect: "coverflow",
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: "auto",
-        loop: true,
-        autoplay: { delay: 3500, disableOnInteraction: false },
-        coverflowEffect: {
-          rotate: 15,
-          stretch: 0,
-          depth: 220,
-          modifier: 1,
-          slideShadows: true
-        },
-        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-        pagination: { el: ".swiper-pagination", type: "fraction" }
       });
     }
 

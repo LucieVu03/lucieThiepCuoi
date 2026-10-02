@@ -46,13 +46,14 @@
   </script>
 
   <style>
-    /* Hiệu ứng nền giấy thô màu be mộc mạc và sang trọng */
+    /* Hiệu ứng nền giấy thô màu be mộc mạc và sang trọng kết hợp chữ Hỷ đỏ rải rác ngẫu nhiên */
     body {
       background-color: #F6F1E8;
       background-image: 
+        url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='25' y='35' font-family='serif' font-size='15' fill='%237D0B14' fill-opacity='0.13' transform='rotate(-8 25 35)'%3E囍%3C/text%3E%3Ctext x='115' y='55' font-family='serif' font-size='12' fill='%237D0B14' fill-opacity='0.10' transform='rotate(12 115 55)'%3E囍%3C/text%3E%3Ctext x='65' y='115' font-family='serif' font-size='14' fill='%237D0B14' fill-opacity='0.12' transform='rotate(-5 65 115)'%3E囍%3C/text%3E%3Ctext x='145' y='145' font-family='serif' font-size='11' fill='%237D0B14' fill-opacity='0.09' transform='rotate(15 145 145)'%3E囍%3C/text%3E%3Ctext x='20' y='165' font-family='serif' font-size='13' fill='%237D0B14' fill-opacity='0.11' transform='rotate(-10 20 165)'%3E囍%3C/text%3E%3C/svg%3E"),
         radial-gradient(#D8CEBF 0.75px, transparent 0.75px),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.82  0 0 0 0 0.77  0 0 0 0 0.70  0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)'/%3E%3C/svg%3E");
-      background-size: 24px 24px, auto;
+      background-size: 180px 180px, 24px 24px, auto;
       overflow-x: hidden;
       color: #2A1F1D;
       font-family: 'Be Vietnam Pro', sans-serif;
@@ -143,16 +144,59 @@
     /* PHONG BÌ LẮC LƯ - NGHỈ - LẮC LƯ */
     @keyframes wiggle-pause {
       0%, 15% { transform: rotate(0deg); }
-      2% { transform: rotate(-10deg); }
-      4% { transform: rotate(10deg); }
-      6% { transform: rotate(-10deg); }
-      8% { transform: rotate(10deg); }
-      10% { transform: rotate(-5deg); }
-      12% { transform: rotate(5deg); }
+      2% { transform: rotate(-8deg); }
+      4% { transform: rotate(8deg); }
+      6% { transform: rotate(-8deg); }
+      8% { transform: rotate(8deg); }
+      10% { transform: rotate(-4deg); }
+      12% { transform: rotate(4deg); }
       100% { transform: rotate(0deg); }
     }
     .wiggle-pause-animate {
       animation: wiggle-pause 3s infinite;
+    }
+
+    /* MÁY ĐĨA THAN VINYL CÓ CẦN GẠT (TONEARM) */
+    .turntable-box {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, #3a2e2b 0%, #201816 100%);
+      border: 1.5px solid #C5A059;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .vinyl-disc {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #7D0B14 20%, #151515 22%, #2a2a2a 40%, #111111 60%, #333333 80%, #0d0d0d 100%);
+      box-shadow: 0 0 5px rgba(0,0,0,0.8);
+      position: absolute;
+      top: 6px;
+      left: 6px;
+    }
+    .tonearm {
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      width: 14px;
+      height: 24px;
+      transform-origin: 10px 4px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: rotate(-35deg); /* vị trí nghỉ khi dừng */
+      pointer-events: none;
+      z-index: 10;
+    }
+    .tonearm.active {
+      transform: rotate(6deg); /* vị trí hạ kim lên đĩa than khi phát */
+    }
+
+    /* THANH TƯƠNG TÁC ĐÁY: NỀN GIẤY VÀNG ÁNH NHŨ VỚI CHỮ HỶ ĐỎ NHỎ XINH */
+    .bottom-bar-custom {
+      background: linear-gradient(135deg, #FFF6D1 0%, #FEE896 28%, #F7D061 50%, #FFEFA6 75%, #E5B842 100%);
+      border: 1.5px solid #F3D27E;
+      box-shadow: 0 12px 35px rgba(125, 11, 20, 0.22), 0 0 18px rgba(247, 208, 97, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.85);
     }
 
     /* Cửa vòm */
@@ -217,6 +261,11 @@
       box-shadow: 0 15px 30px rgba(0,0,0,0.15), inset -5px 0 15px rgba(0,0,0,0.03);
       border: 2px solid #E8CA8C;
       padding-left: 28px;
+      perspective: 1200px;
+    }
+    .book-slider .swiper-slide {
+      transform-origin: left center !important;
+      backface-visibility: hidden;
     }
     .spiral-ring {
       width: 24px;
@@ -239,11 +288,10 @@
     .film-strip-wrapper {
       position: relative;
       background: #1a1615;
-      padding: 14px 0;
+      padding: 12px 0;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(0, 0, 0, 0.7);
       border-top: 2px solid #C5A059;
       border-bottom: 2px solid #C5A059;
-      overflow: hidden;
     }
     .sprocket-holes {
       display: flex;
@@ -254,18 +302,21 @@
       background-size: 16px 8px;
       opacity: 0.75;
     }
-    .film-track {
+    .film-scroll-container {
       display: flex;
       gap: 16px;
-      width: max-content;
-      animation: filmScroll 24s linear infinite;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      scrollbar-width: none; /* Ẩn thanh cuộn xấu */
+      padding: 6px 14px;
     }
-    .film-track:hover {
-      animation-play-state: paused;
+    .film-scroll-container::-webkit-scrollbar {
+      display: none;
     }
-    @keyframes filmScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    .film-scroll-container:active {
+      cursor: grabbing;
     }
     .film-frame {
       position: relative;
@@ -276,6 +327,8 @@
       border-radius: 4px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
       flex-shrink: 0;
+      cursor: pointer;
+      user-select: none;
     }
     .film-frame img {
       width: 100%;
@@ -284,6 +337,7 @@
       border-radius: 2px;
       filter: sepia(0.22) contrast(1.06) brightness(0.97);
       transition: filter 0.3s ease, transform 0.3s ease;
+      pointer-events: none; /* Giúp thao tác kéo drag mượt mà */
     }
     .film-frame:hover img {
       filter: sepia(0.05) contrast(1.1) brightness(1.02);
@@ -300,9 +354,29 @@
       opacity: 0.8;
       pointer-events: none;
     }
+
+    /* LIGHTBOX ZOOM ẢNH NỔI TO TOÀN MÀN HÌNH */
+    #imageLightbox {
+      transition: opacity 0.3s ease;
+    }
+    #imageLightbox.hidden {
+      display: none;
+      opacity: 0;
+    }
+    #lightboxImg {
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
+
+  <!-- LIGHTBOX PHÓNG TO ẢNH FULL MÀN HÌNH -->
+  <div id="imageLightbox" class="fixed inset-0 z-[200] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-3 select-none cursor-zoom-out">
+    <button id="closeLightboxBtn" class="absolute top-4 right-4 text-white text-2xl w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center z-10 transition-colors">✕</button>
+    <div class="relative max-w-full max-h-full flex items-center justify-center p-1">
+      <img id="lightboxImg" src="" alt="Phóng to ảnh" class="max-w-[94vw] max-h-[88vh] rounded-2xl object-contain shadow-2xl scale-95 transition-transform duration-300">
+    </div>
+  </div>
 
   <!-- CANVAS PHÁO GIẤY RƠI LIÊN TỤC -->
   <canvas id="confetti-canvas"></canvas>
@@ -315,19 +389,17 @@
     <div id="curtainLeft" class="curtain-panel curtain-left"></div>
     <div id="curtainRight" class="curtain-panel curtain-right"></div>
 
-    <!-- KHUNG THIỆP CHÍNH (NỀN ĐỎ RƯỢU, CÓ CHỮ HỶ CHÉO CHÉO ẨN CHÌM) -->
+    <!-- KHUNG THIỆP CHÍNH -->
     <div id="welcomeCard" class="relative z-[110] w-full max-w-xs md:max-w-sm bg-gradient-to-b from-wedding-red to-wedding-redDark rounded-3xl p-6 text-center text-white border-2 border-wedding-gold/60 shadow-[0_25px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-700">
-      
-      <!-- Chữ Hỷ chéo chéo ẩn chìm trên nền -->
+      <!-- Chữ Hỷ ẩn chìm -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div class="absolute -top-6 -left-12 text-[12rem] md:text-[14rem] font-serif text-wedding-gold/15 select-none -rotate-12 leading-none">囍</div>
         <div class="absolute -bottom-10 -right-12 text-[13rem] md:text-[15rem] font-serif text-wedding-gold/15 select-none rotate-12 leading-none">囍</div>
       </div>
 
       <div class="relative z-10">
-        <!-- Ảnh số 3 hiển thị trên bìa -->
         <div class="w-36 h-48 mx-auto rounded-2xl overflow-hidden border-2 border-wedding-gold shadow-2xl mb-4 bg-wedding-cream img-fade-zoom">
-          <img src="./TUYEN_LAN_3.jpg" onerror="this.src='https://placehold.co/400x533/7D0B14/FFE082?text=Mạnh+Tuyên+&+Hoàng+Lan'" class="w-full h-full object-cover" alt="Mạnh Tuyên & Hoàng Lan">
+          <img src="./TUYEN_LAN_3.jpg" onerror="this.src='./TUYEN_LAN_9.JPG'" class="w-full h-full object-cover" alt="Mạnh Tuyên & Hoàng Lan">
         </div>
 
         <p class="font-serif text-[11px] uppercase tracking-[0.25em] text-wedding-goldLight mb-1 font-semibold">SAVE THE DATE</p>
@@ -352,11 +424,23 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- 2. GÓC TRÊN TRÁI: ĐĨA NHẠC -->
+  <!-- 2. GÓC TRÊN TRÁI: MÁY ĐĨA THAN VINYL CÓ CẦN GẠT -->
   <!-- ============================================== -->
   <div id="musicContainer" class="fixed top-3 left-3 z-[105] opacity-0 pointer-events-none transition-all duration-700">
-    <button id="musicToggle" class="w-10 h-10 rounded-full bg-wedding-red/90 text-white flex items-center justify-center shadow-xl border border-wedding-gold hover:scale-105 transition-all">
-      <i id="musicIcon" class="fa-solid fa-compact-disc text-base spinning"></i>
+    <button id="musicToggle" class="turntable-box cursor-pointer flex items-center justify-center group" title="Bật/Tắt nhạc">
+      <!-- Đĩa than xoay -->
+      <div id="musicDisc" class="vinyl-disc">
+        <div class="absolute inset-0 m-auto w-2 h-2 rounded-full bg-wedding-gold border border-black"></div>
+      </div>
+      <!-- Cần gạt kim đĩa than (Tonearm) -->
+      <svg id="tonearm" class="tonearm" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Chốt xoay -->
+        <circle cx="11" cy="4" r="3" fill="#D4AF37" stroke="#7A5813" stroke-width="0.8"/>
+        <!-- Cần kim loại -->
+        <path d="M11 4 L6 18 L3 23" stroke="#E6C875" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Đầu kim đọc đĩa -->
+        <rect x="0.5" y="21.5" width="4.5" height="3" rx="0.8" fill="#FFFFFF" stroke="#333333" stroke-width="0.6"/>
+      </svg>
     </button>
     <audio id="bgMusic" loop preload="auto">
       <source src="./Nhacnen.mp3" type="audio/mp3">
@@ -718,23 +802,23 @@
         </div>
 
         <!-- THAY THẾ SỐ NGƯỜI BẰNG: BẠN SẼ ĐI CÙNG TÌNH YÊU CỦA MÌNH CHỨ? -->
-        <div class="bg-amber-50/70 p-3 rounded-2xl border border-wedding-gold/40">
-          <div class="flex items-center justify-between cursor-pointer" onclick="const cb = document.getElementById('withLoveCheckbox'); if(cb) { cb.checked = !cb.checked; cb.dispatchEvent(new Event('change')); }">
-            <div>
-              <span class="block text-xs font-semibold text-gray-800">Bạn sẽ đi cùng tình yêu của mình chứ? 💕</span>
-              <span id="guestCountHint" class="text-[10px] text-gray-500 leading-tight block mt-0.5">Đi một mình (1 người)</span>
-            </div>
-            <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-3" onclick="event.stopPropagation()">
-              <input type="checkbox" id="withLoveCheckbox" class="sr-only peer">
-              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-wedding-red"></div>
-            </label>
+        <!-- BẠN SẼ ĐI CÙNG TÌNH YÊU CỦA MÌNH CHỨ? (ICON TRÁI TIM TƯƠNG TÁC) -->
+        <div class="bg-amber-50/70 p-3.5 rounded-2xl border border-wedding-gold/40">
+          <div id="withLoveRow" class="flex items-center justify-between cursor-pointer select-none">
+            <span class="text-xs font-semibold text-gray-800">Bạn sẽ đi cùng tình yêu của mình chứ?</span>
+            <input type="checkbox" id="withLoveCheckbox" class="hidden">
+            <!-- Nút Trái Tim: Chưa chọn = xám nhạt, chọn = đỏ rực nổi bật -->
+            <button type="button" id="heartToggleBtn" class="w-9 h-9 rounded-full bg-white border border-rose-200 flex items-center justify-center shadow-xs transition-all active:scale-90">
+              <i id="heartIcon" class="fa-solid fa-heart text-gray-300 text-lg transition-all duration-300"></i>
+            </button>
           </div>
         </div>
 
         <div>
           <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-1">Lời chúc mừng</label>
           <textarea id="guestWishes" rows="2" 
-                    class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30">Chúc 2 bạn hạnh phúc viên mãn</textarea>
+                    placeholder="Chúc 2 bạn hạnh phúc viên mãn"
+                    class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30 placeholder:text-gray-400/80 placeholder:italic"></textarea>
         </div>
 
         <button type="submit" id="submitBtn" class="btn-wedding-gold btn-shimmer w-full py-3.5 text-wedding-red font-serif font-bold rounded-xl shadow-lg uppercase tracking-wider text-xs flex items-center justify-center gap-2 cursor-pointer relative overflow-hidden">
@@ -747,7 +831,7 @@
   </section>
 
   <!-- ============================================== -->
-  <!-- 9.1 ALBUM ẢNH VINTAGE: CUỘN PHIM "HAI ĐỨA IU NHAO" -->
+  <!-- 9.1 ALBUM ẢNH VINTAGE: CUỘN PHIM "HAI ĐỨA IU NHAO" (VUỐT ROLL BẰNG TAY) -->
   <!-- ============================================== -->
   <section class="py-10 overflow-hidden w-full" data-aos="fade-up" data-aos-duration="1000">
     <div class="text-center px-4 mb-4">
@@ -757,59 +841,69 @@
         <span class="text-wedding-gold text-xs">🎞️</span>
       </div>
       <h2 class="font-script text-4xl text-wedding-red">Hai Đứa Iu Nhao</h2>
-      <p class="font-serif italic text-[11px] text-stone-600 mt-1">Những thước phim hoài niệm được lưu giữ theo năm tháng 📼</p>
+      <p class="font-serif italic text-[11px] text-stone-600 mt-1">Vuốt ngang cuộn phim để xem từng khoảnh khắc 📼</p>
     </div>
 
-    <!-- KHUNG CUỘN PHIM KIỂU CŨ CHẠY NGANG LIÊN TỤC -->
+    <!-- KHUNG CUỘN PHIM CÓ THỂ VUỐT CUỘN ROLL NGANG BẰNG TAY -->
     <div class="film-strip-wrapper">
       <!-- Dải lỗ răng cưa trên -->
-      <div class="sprocket-holes mb-2.5"></div>
+      <div class="sprocket-holes mb-2"></div>
 
-      <!-- Đường ray cuộn phim tự động quét và nạp toàn bộ ảnh Vintage_ từ thư mục -->
-      <div class="film-track px-3" id="vintageFilmTrack"></div>
+      <!-- Vùng vuốt cuộn bằng tay mượt mà -->
+      <div class="film-scroll-container" id="vintageFilmContainer"></div>
 
       <!-- Dải lỗ răng cưa dưới -->
-      <div class="sprocket-holes mt-2.5"></div>
+      <div class="sprocket-holes mt-2"></div>
     </div>
   </section>
 
   <!-- ============================================== -->
-  <!-- 10. THANH TƯƠNG TÁC ĐÁY MÀN HÌNH -->
+  <!-- 10. THANH TƯƠNG TÁC ĐÁY MÀN HÌNH (NỀN HOA VĂN CHỮ HỶ & PHONG BÌ NGANG) -->
   <!-- ============================================== -->
   <div class="fixed bottom-3 inset-x-3 max-w-sm mx-auto z-40">
-    <div class="bg-white/95 backdrop-blur-md border border-wedding-gold/50 shadow-2xl rounded-full px-5 py-2 flex items-center justify-between">
+    <div class="bottom-bar-custom relative rounded-full px-5 py-2 flex items-center justify-between overflow-hidden">
+      <!-- Những chữ Hỷ nhỏ màu đỏ chìm tinh tế trên nền giấy vàng ánh nhũ -->
+      <div class="absolute inset-0 pointer-events-none select-none flex items-center justify-around opacity-30 text-wedding-red font-serif">
+        <span class="text-[12px] rotate-[-8deg]">囍</span>
+        <span class="text-[9px] -mt-2 rotate-[6deg]">囍</span>
+        <span class="text-[11px] mt-2 rotate-[-5deg]">囍</span>
+        <span class="text-[10px] -mt-1 rotate-[10deg]">囍</span>
+        <span class="text-[12px] rotate-[-4deg]">囍</span>
+      </div>
       
-      <!-- Nút Lời chúc: Icon ở trên, Chữ ở dưới ngang hàng Mừng Cưới -->
-      <a href="#rsvpSection" class="flex flex-col items-center justify-end px-2 py-0.5 hover:opacity-80 active:scale-95 transition-all text-wedding-red cursor-pointer">
+      <!-- Nút Lời chúc -->
+      <a href="#rsvpSection" class="relative z-10 flex flex-col items-center justify-end px-2 py-0.5 hover:opacity-80 active:scale-95 transition-all text-wedding-red cursor-pointer">
         <div class="h-9 flex items-center justify-center">
           <i class="fa-regular fa-comment-dots text-base text-wedding-red"></i>
         </div>
         <span class="text-[8.5px] font-bold uppercase tracking-wider text-center mt-1 leading-none">Lời chúc</span>
       </a>
 
-      <div class="h-6 w-[1px] bg-gray-200"></div>
+      <div class="relative z-10 h-6 w-[1px] bg-wedding-red/20"></div>
 
-      <!-- PHONG BÌ MỪNG CƯỚI: CHỈ RIÊNG PHONG BÌ LẮC, CHỮ ĐỨNG IM, CÙNG ĐỘ CAO -->
-      <button id="bottomGiftBtn" class="flex flex-col items-center justify-end px-2 py-0.5 bg-transparent border-0 shadow-none outline-none active:scale-95 transition-transform cursor-pointer">
-        <!-- Icon Phong Bì Dọc Lớn Hơn (Chỉ phần phong bì này lắc lư) -->
+      <!-- PHONG BÌ NGANG MỪNG CƯỚI: PHONG BÌ LẮC, CHỮ ĐỨNG IM -->
+      <button id="bottomGiftBtn" class="relative z-10 flex flex-col items-center justify-end px-2 py-0.5 bg-transparent border-0 shadow-none outline-none active:scale-95 transition-transform cursor-pointer">
+        <!-- Icon Phong Bì Dáng Ngang (Chỉ phong bì lắc) -->
         <div class="h-9 flex items-center justify-center">
-          <div class="wiggle-pause-animate w-7 h-9 bg-wedding-red rounded-sm relative border border-red-800 shadow-md flex items-center justify-center overflow-hidden shrink-0">
-            <div class="absolute top-0 left-0 w-full h-1/2 border-b border-red-900 bg-red-700" style="clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
-            <span class="text-[9px] text-wedding-gold z-10 font-bold mt-2">囍</span>
+          <div class="wiggle-pause-animate w-10 h-7 bg-wedding-red rounded-[3px] relative border border-red-800 shadow-md flex items-center justify-center overflow-hidden shrink-0">
+            <!-- Nắp phong bì ngang hình tam giác -->
+            <div class="absolute top-0 left-0 w-full h-[55%] border-b border-red-900 bg-red-700" style="clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+            <!-- Chữ Hỷ nhỏ màu vàng ở giữa -->
+            <span class="text-[10px] text-wedding-gold z-10 font-bold mt-1.5 drop-shadow-xs">囍</span>
           </div>
         </div>
         <!-- Chữ Mừng Cưới Đứng Im Hoàn Toàn -->
         <span class="text-[8.5px] font-bold text-wedding-red uppercase tracking-wider text-center mt-1 leading-none">Mừng Cưới</span>
       </button>
 
-      <div class="h-6 w-[1px] bg-gray-200"></div>
+      <div class="relative z-10 h-6 w-[1px] bg-wedding-red/20"></div>
 
-      <!-- Nút Bắn pháo: Icon ở trên, Chữ ở dưới ngang hàng Mừng Cưới -->
-      <button id="confettiBtn" class="flex flex-col items-center justify-end px-2 py-0.5 active:scale-95 transition-all text-amber-700 relative cursor-pointer bg-transparent border-0 outline-none">
+      <!-- Nút Bắn pháo: Đồng bộ màu chữ và icon cùng tông đỏ với Lời chúc & Mừng cưới -->
+      <button id="confettiBtn" class="relative z-10 flex flex-col items-center justify-end px-2 py-0.5 active:scale-95 transition-all text-wedding-red relative cursor-pointer bg-transparent border-0 outline-none">
         <div class="h-9 flex items-center justify-center">
           <span class="text-base select-none leading-none">🎉</span>
         </div>
-        <span class="text-[8.5px] font-bold uppercase tracking-wider text-center mt-1 leading-none">Bắn pháo</span>
+        <span class="text-[8.5px] font-bold text-wedding-red uppercase tracking-wider text-center mt-1 leading-none">Bắn pháo</span>
       </button>
     </div>
   </div>
@@ -825,35 +919,69 @@
     }
 
     // ==============================================
-    // TỰ ĐỘNG QUÉT & NẠP TOÀN BỘ ẢNH VINTAGE_ (BAO TRỌN TOÀN BỘ 52+ ẢNH TRONG THƯ MỤC)
+    // 4. LIGHTBOX XEM ẢNH PHÓNG TO KHI CHẠM VÀO ẢNH BẤT KỲ
+    // ==============================================
+    const imageLightbox = document.getElementById('imageLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+    function openLightbox(src) {
+      if (!imageLightbox || !lightboxImg || !src) return;
+      lightboxImg.src = src;
+      imageLightbox.classList.remove('hidden');
+      setTimeout(() => {
+        lightboxImg.classList.remove('scale-95');
+        lightboxImg.classList.add('scale-100');
+      }, 20);
+    }
+
+    function closeLightbox() {
+      if (!imageLightbox || !lightboxImg) return;
+      lightboxImg.classList.remove('scale-100');
+      lightboxImg.classList.add('scale-95');
+      setTimeout(() => {
+        imageLightbox.classList.add('hidden');
+        lightboxImg.src = '';
+      }, 200);
+    }
+
+    if (imageLightbox) {
+      imageLightbox.addEventListener('click', (e) => {
+        // Ấn ra ngoài ảnh hoặc nút đóng để thoát
+        if (e.target !== lightboxImg) {
+          closeLightbox();
+        }
+      });
+    }
+    if (closeLightboxBtn) {
+      closeLightboxBtn.addEventListener('click', closeLightbox);
+    }
+
+    // Gắn sự kiện phóng to cho tất cả ảnh trên trang
+    function attachLightboxToImages() {
+      const zoomableImages = document.querySelectorAll('.swiper-slide img, .arch-frame img, #welcomeCard img');
+      zoomableImages.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openLightbox(img.currentSrc || img.src);
+        });
+      });
+    }
+    setTimeout(attachLightboxToImages, 1000);
+
+    // ==============================================
+    // 1. TỰ ĐỘNG NẠP CUỘN PHIM VINTAGE_ & HỖ TRỢ VUỐT CUỘN ROLL NGANG BẰNG TAY
     // ==============================================
     function initVintageFilmStrip() {
-      const track = document.getElementById('vintageFilmTrack');
-      if (!track) return;
+      const container = document.getElementById('vintageFilmContainer');
+      if (!container) return;
 
       const filmBrands = ['KODAK • 400TX', 'FUJI • PRO400', 'KODAK • GOLD200', 'PORTRA • 160', 'ILFORD • HP5', 'AGFA • VISTA'];
-      const maxScan = 65; // Quét thoải mái vượt qua số 052 trong thư mục của bạn
-      let processed = 0;
-      let isFinalized = false;
-
-      function finalizeTrack() {
-        if (isFinalized) return;
-        isFinalized = true;
-        const currentFrames = Array.from(track.querySelectorAll('.film-frame'));
-        if (currentFrames.length > 0) {
-          // Nhân bản toàn bộ ảnh thực tế đã tìm thấy để cuộn vô tận không gián đoạn
-          currentFrames.forEach(f => {
-            const clone = f.cloneNode(true);
-            track.appendChild(clone);
-          });
-          // Tự động căn chỉnh tốc độ cuộn phù hợp với số lượng ảnh (mỗi ảnh ~2.5s để ngắm rõ)
-          const duration = Math.max(30, currentFrames.length * 2.5);
-          track.style.animationDuration = duration + 's';
-        }
-      }
+      const maxScan = 65;
 
       for (let i = 1; i <= maxScan; i++) {
-        const num3 = String(i).padStart(3, '0'); // Ví dụ: 001, 002...
+        const num3 = String(i).padStart(3, '0');
         const brand = filmBrands[(i - 1) % filmBrands.length];
         const stamp = `${brand} #${num3}`;
 
@@ -864,27 +992,21 @@
         img.alt = `Hai đứa iu nhao ${num3}`;
         img.loading = 'lazy';
 
-        // Cơ chế nhận diện thông minh:
-        // 1. Thử dạng 3 số: Vintage_001.jpg
-        // 2. Nếu không tìm thấy, thử fallback dạng số thường: Vintage_1.jpg
-        // 3. Nếu cả 2 đều không có thì tự xóa frame, không để lại ô đen
         img.onerror = function() {
           if (!this.dataset.fallbackTried) {
             this.dataset.fallbackTried = 'true';
             this.src = `./Vintage_${i}.jpg`;
           } else {
             frame.remove();
-            processed++;
-            if (processed >= maxScan) finalizeTrack();
           }
         };
 
-        img.onload = function() {
-          processed++;
-          if (processed >= maxScan) finalizeTrack();
-        };
-
         img.src = `./Vintage_${num3}.jpg`;
+
+        // Chạm vào ảnh trong cuộn phim để phóng to nổi full lên trên
+        frame.addEventListener('click', () => {
+          openLightbox(img.currentSrc || img.src);
+        });
 
         const stampEl = document.createElement('span');
         stampEl.className = 'film-stamp';
@@ -892,18 +1014,33 @@
 
         frame.appendChild(img);
         frame.appendChild(stampEl);
-        track.appendChild(frame);
+        container.appendChild(frame);
       }
 
-      // Thời gian chờ tối đa 1.8s để chốt dải phim ngay cả khi có ảnh tải chậm
-      setTimeout(finalizeTrack, 1800);
+      // HỖ TRỢ VUỐT / DRAG BẰNG CHUỘT TRÊN MÁY TÍNH
+      let isDown = false;
+      let startX, scrollLeft;
+
+      container.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+      });
+      container.addEventListener('mouseleave', () => { isDown = false; });
+      container.addEventListener('mouseup', () => { isDown = false; });
+      container.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 1.6; // Tốc độ trượt theo tay
+        container.scrollLeft = scrollLeft - walk;
+      });
     }
 
     initVintageFilmStrip();
 
     // ==============================================
-    // TỰ ĐỘNG QUÉT & NẠP TOÀN BỘ ẢNH NK_ (NHẬT KÝ YÊU THƯƠNG)
-    // HỖ TRỢ ĐA DẠNG: NK_001.jpg, NK_01.jpg, NK_1.jpg, NK_...JPG, png...
+    // 3. NHẬT KÝ YÊU THƯƠNG: HIỆU ỨNG LẬT TRANG SÁCH 3D (FLIP)
     // ==============================================
     function initNkBookSlider() {
       const wrapper = document.getElementById('nkSliderWrapper');
@@ -932,7 +1069,6 @@
         isFinalized = true;
 
         if (foundSlides.length === 0) {
-          // Fallback an toàn nếu chưa kịp thêm ảnh NK_ vào thư mục
           const fallbacks = [
             { src: './TUYEN_LAN_2.jpg', quote: 'Nụ cười rạng rỡ ngày đầu gặp gỡ ✨' },
             { src: './TUYEN_LAN_3.jpg', quote: 'Cùng nhau bước qua thanh xuân 💌' },
@@ -943,24 +1079,42 @@
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
             slide.innerHTML = `
-              <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom">
+              <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom cursor-pointer">
                 <img src="${item.src}" onerror="this.src='https://placehold.co/300x400/FFFDF9/7D0B14?text=Kỷ+Niệm'" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm">
                 <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"${item.quote}"</p>
               </div>
             `;
+            slide.querySelector('img').addEventListener('click', (e) => {
+              e.stopPropagation();
+              openLightbox(e.target.currentSrc || e.target.src);
+            });
             wrapper.appendChild(slide);
           });
         } else {
-          // Sắp xếp các slide tìm thấy theo thứ tự tăng dần
           foundSlides.sort((a, b) => a.index - b.index);
           foundSlides.forEach(item => wrapper.appendChild(item.element));
         }
 
+        // CẤU HÌNH HIỆU ỨNG LẬT TRANG SÁCH 3D (LẤY TRỤC LẬT LÀ MÉP BÊN TRÁI GÁY LÒ XO)
         if (typeof Swiper !== 'undefined') {
           new Swiper(".book-slider", {
-            slidesPerView: 1,
+            effect: "creative",
             grabCursor: true,
-            loop: wrapper.children.length > 1
+            loop: wrapper.children.length > 1,
+            creativeEffect: {
+              perspective: true,
+              prev: {
+                shadow: true,
+                origin: "left center",
+                translate: [0, 0, -10],
+                rotate: [0, -115, 0],
+              },
+              next: {
+                origin: "left center",
+                translate: [0, 0, 0],
+                rotate: [0, 0, 0],
+              }
+            }
           });
         }
       }
@@ -995,11 +1149,15 @@
           slide.className = 'swiper-slide';
           const quote = quotes[(i - 1) % quotes.length];
           slide.innerHTML = `
-            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom">
+            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom cursor-pointer">
               <img src="${this.src}" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm ${i}">
               <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"${quote}"</p>
             </div>
           `;
+          slide.querySelector('img').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openLightbox(e.target.currentSrc || e.target.src);
+          });
           foundSlides.push({ index: i, element: slide });
           processed++;
           if (processed >= maxScan) finalizeBook();
@@ -1018,133 +1176,34 @@
     initNkBookSlider();
 
     // ==============================================
-    // FUNCTION ĐẾM NGƯỢC ĐẾN NGÀY CƯỚI (18/10/2026 08:00)
-    // ==============================================
-    const weddingDate = new Date("2026-10-18T08:00:00+07:00").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
-
-      const daysEl = document.getElementById("days");
-      const hoursEl = document.getElementById("hours");
-      const minutesEl = document.getElementById("minutes");
-      const secondsEl = document.getElementById("seconds");
-
-      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
-
-      if (distance < 0) {
-        daysEl.innerText = "00";
-        hoursEl.innerText = "00";
-        minutesEl.innerText = "00";
-        secondsEl.innerText = "00";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      daysEl.innerText = days < 10 ? "0" + days : days;
-      hoursEl.innerText = hours < 10 ? "0" + hours : hours;
-      minutesEl.innerText = minutes < 10 ? "0" + minutes : minutes;
-      secondsEl.innerText = seconds < 10 ? "0" + seconds : seconds;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // ==============================================
-    // GOOGLE APPS SCRIPT WEBAPP
-    // ==============================================
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw24R6B2OmZJyNCRaXhUUA_xo1odojw4Tyg_X_3ft-dxqsgCoiavV01Zmm_NcNKxr5G/exec"; 
-
-    function logToGoogleSheet(payload) {
-      if (!GOOGLE_SHEET_WEBAPP_URL) return;
-      const formData = new URLSearchParams();
-      for (const key in payload) {
-        formData.append(key, payload[key]);
-      }
-      fetch(GOOGLE_SHEET_WEBAPP_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
-      }).catch(e => console.log(e));
-    }
-
-    // ==============================================
-    // HIỆU ỨNG PHÁO HOA GIẤY RƠI LIÊN TỤC
-    // ==============================================
-    const canvas = document.getElementById('confetti-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let width = canvas.width = window.innerWidth;
-      let height = canvas.height = window.innerHeight;
-
-      window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      });
-
-      const colors = ['#7D0B14', '#C5A059', '#E8CA8C', '#F8BBD0', '#FFD54F', '#FFFFFF'];
-      const confettiCount = 35;
-      const confettis = [];
-
-      class ConfettiPiece {
-        constructor() { this.reset(); }
-        reset() {
-          this.x = Math.random() * width;
-          this.y = Math.random() * -height;
-          this.size = Math.random() * 8 + 5;
-          this.color = colors[Math.floor(Math.random() * colors.length)];
-          this.speedY = Math.random() * 1.2 + 0.6;
-          this.speedX = Math.random() * 0.8 - 0.4;
-          this.rotation = Math.random() * 360;
-          this.rotationSpeed = Math.random() * 1.5 - 0.75;
-          this.opacity = Math.random() * 0.7 + 0.3;
-        }
-        update() {
-          this.y += this.speedY;
-          this.x += Math.sin(this.y * 0.01) * 0.6 + this.speedX;
-          this.rotation += this.rotationSpeed;
-          if (this.y > height) this.reset();
-        }
-        draw() {
-          ctx.save();
-          ctx.translate(this.x, this.y);
-          ctx.rotate((this.rotation * Math.PI) / 180);
-          ctx.globalAlpha = this.opacity;
-          ctx.fillStyle = this.color;
-          ctx.fillRect(-this.size / 2, -this.size / 4, this.size, this.size / 2);
-          ctx.restore();
-        }
-      }
-
-      for (let i = 0; i < confettiCount; i++) {
-        confettis.push(new ConfettiPiece());
-      }
-
-      function renderConfetti() {
-        ctx.clearRect(0, 0, width, height);
-        confettis.forEach(c => {
-          c.update();
-          c.draw();
-        });
-        requestAnimationFrame(renderConfetti);
-      }
-      renderConfetti();
-    }
-
-    // ==============================================
-    // SỰ KIỆN NÚT "MỞ THIỆP"
+    // SỰ KIỆN NÚT "MỞ THIỆP" & MÁY ĐĨA THAN VINYL CÓ CẦN GẠT
     // ==============================================
     const openCardBtn = document.getElementById('openCardBtn');
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('musicIcon');
+    const musicDisc = document.getElementById('musicDisc');
+    const tonearm = document.getElementById('tonearm');
     const musicContainer = document.getElementById('musicContainer');
     let isPlaying = false;
+
+    // Cài đặt âm lượng khoảng 50% cho nhạc nền và các thẻ media/video (nếu có)
+    if (bgMusic) {
+      bgMusic.volume = 0.5;
+    }
+    document.querySelectorAll('video').forEach(v => {
+      v.volume = 0.5;
+    });
+
+    function setMusicPlayingState(playing) {
+      isPlaying = playing;
+      if (playing) {
+        if (musicDisc) musicDisc.classList.add('spinning');
+        if (tonearm) tonearm.classList.add('active'); // Hạ cần gạt kim lên đĩa than
+      } else {
+        if (musicDisc) musicDisc.classList.remove('spinning');
+        if (tonearm) tonearm.classList.remove('active'); // Nhấc cần gạt kim ra khỏi đĩa
+      }
+    }
 
     // Tự động cuộn từ từ mượt mà
     let autoScrollActive = false;
@@ -1211,7 +1270,7 @@
           if (curtainRight) curtainRight.style.transform = 'translateX(100%)';
         }, 200);
 
-        // 4. Hiển thị nút nhạc sau khi mở thiệp
+        // 4. Hiển thị máy đĩa than sau khi mở thiệp
         setTimeout(() => {
           if (musicContainer) {
             musicContainer.classList.remove('opacity-0', 'pointer-events-none');
@@ -1219,11 +1278,11 @@
           }
         }, 700);
 
-        // Bật nhạc nền
+        // Bật nhạc nền với âm lượng 50%
         if (bgMusic) {
+          bgMusic.volume = 0.5;
           bgMusic.play().then(() => {
-            isPlaying = true;
-            if (musicIcon) musicIcon.className = 'fa-solid fa-compact-disc text-base spinning';
+            setMusicPlayingState(true);
           }).catch(() => {});
         }
 
@@ -1240,18 +1299,12 @@
       musicBtn.addEventListener('click', () => {
         if (isPlaying) {
           bgMusic.pause();
-          if (musicIcon) {
-            musicIcon.classList.remove('spinning');
-            musicIcon.className = 'fa-solid fa-volume-xmark text-base';
-          }
+          setMusicPlayingState(false);
         } else {
+          bgMusic.volume = 0.5;
           bgMusic.play();
-          if (musicIcon) {
-            musicIcon.classList.add('spinning');
-            musicIcon.className = 'fa-solid fa-compact-disc text-base spinning';
-          }
+          setMusicPlayingState(true);
         }
-        isPlaying = !isPlaying;
       });
     }
 
@@ -1268,7 +1321,7 @@
     }
 
     function updateQrContent() {
-      const rawWish = (guestWishesInput && guestWishesInput.value) ? guestWishesInput.value : "Chuc 2 ban hanh phuc vien man";
+      const rawWish = (guestWishesInput && guestWishesInput.value.trim()) ? guestWishesInput.value.trim() : "Chuc 2 ban hanh phuc vien man";
       const cleanWish = removeVietnameseTones(rawWish).substring(0, 35);
       const memo = `MUNG CUOI HOANG LAN - ${cleanWish}`;
       
@@ -1402,24 +1455,89 @@
     });
 
     // ==============================================
-    // XỬ LÝ CHỌN: ĐI CÙNG TÌNH YÊU (KHÔNG TÍCH: 1, CÓ TÍCH: 2)
+    // XỬ LÝ: BẠN SẼ ĐI CÙNG TÌNH YÊU CỦA MÌNH CHỨ? (ICON TRÁI TIM ĐỎ / XÁM)
     // ==============================================
+    const withLoveRow = document.getElementById('withLoveRow');
     const withLoveCheckbox = document.getElementById('withLoveCheckbox');
-    const guestCountHint = document.getElementById('guestCountHint');
+    const heartIcon = document.getElementById('heartIcon');
+    const heartToggleBtn = document.getElementById('heartToggleBtn');
 
-    if (withLoveCheckbox && guestCountHint) {
-      withLoveCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          guestCountHint.innerText = "Đi cùng người thương (2 người) 💑";
-          guestCountHint.className = "text-[10px] text-wedding-red font-semibold leading-tight block mt-0.5";
-        } else {
-          guestCountHint.innerText = "Đi một mình (1 người)";
-          guestCountHint.className = "text-[10px] text-gray-500 leading-tight block mt-0.5";
-        }
-      });
+    function toggleLoveHeart() {
+      if (!withLoveCheckbox || !heartIcon) return;
+      withLoveCheckbox.checked = !withLoveCheckbox.checked;
+
+      if (withLoveCheckbox.checked) {
+        heartIcon.className = "fa-solid fa-heart text-red-600 text-xl scale-125 transition-all duration-300 drop-shadow-xs";
+        if (heartToggleBtn) heartToggleBtn.classList.add('border-red-300', 'bg-rose-50');
+      } else {
+        heartIcon.className = "fa-solid fa-heart text-gray-300 text-lg scale-100 transition-all duration-300";
+        if (heartToggleBtn) heartToggleBtn.classList.remove('border-red-300', 'bg-rose-50');
+      }
     }
 
-    // Nút Bắn Pháo Ở Thanh Đáy
+    if (withLoveRow) {
+      withLoveRow.addEventListener('click', toggleLoveHeart);
+    }
+
+    // ==============================================
+    // FUNCTION ĐẾM NGƯỢC ĐẾN NGÀY CƯỚI (18/10/2026 08:00)
+    // ==============================================
+    const weddingDate = new Date("2026-10-18T08:00:00+07:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+
+      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+      if (distance < 0) {
+        daysEl.innerText = "00";
+        hoursEl.innerText = "00";
+        minutesEl.innerText = "00";
+        secondsEl.innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.innerText = days < 10 ? "0" + days : days;
+      hoursEl.innerText = hours < 10 ? "0" + hours : hours;
+      minutesEl.innerText = minutes < 10 ? "0" + minutes : minutes;
+      secondsEl.innerText = seconds < 10 ? "0" + seconds : seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ==============================================
+    // LINK GOOGLE APPS SCRIPT ĐỒNG BỘ DỮ LIỆU
+    // ==============================================
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw24R6B2OmZJyNCRaXhUUA_xo1odojw4Tyg_X_3ft-dxqsgCoiavV01Zmm_NcNKxr5G/exec"; 
+
+    function logToGoogleSheet(payload) {
+      if (!GOOGLE_SHEET_WEBAPP_URL) return;
+      const formData = new URLSearchParams();
+      for (const key in payload) {
+        formData.append(key, payload[key]);
+      }
+      fetch(GOOGLE_SHEET_WEBAPP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      }).catch(e => console.log(e));
+    }
+
+    // ==============================================
+    // NÚT BẮN PHÁO Ở THANH ĐÁY
+    // ==============================================
     const confettiBtn = document.getElementById('confettiBtn');
     if (confettiBtn) {
       confettiBtn.addEventListener('click', () => {
@@ -1438,6 +1556,69 @@
 
         logToGoogleSheet({ action: "Bắn pháo hoa", name: "Khách bắn pháo" });
       });
+    }
+
+    // ==============================================
+    // PHÁO GIẤY RƠI LIÊN TỤC TRÊN TOÀN TRANG
+    // ==============================================
+    const canvas = document.getElementById('confetti-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const colors = ['#7D0B14', '#C5A059', '#E8CA8C', '#F8BBD0', '#FFD54F', '#FFFFFF'];
+      const confettiCount = 35;
+      const confettis = [];
+
+      class ConfettiPiece {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * -height;
+          this.size = Math.random() * 8 + 5;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.speedY = Math.random() * 1.2 + 0.6;
+          this.speedX = Math.random() * 0.8 - 0.4;
+          this.rotation = Math.random() * 360;
+          this.rotationSpeed = Math.random() * 1.5 - 0.75;
+          this.opacity = Math.random() * 0.7 + 0.3;
+        }
+        update() {
+          this.y += this.speedY;
+          this.x += Math.sin(this.y * 0.01) * 0.6 + this.speedX;
+          this.rotation += this.rotationSpeed;
+          if (this.y > height) this.reset();
+        }
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate((this.rotation * Math.PI) / 180);
+          ctx.globalAlpha = this.opacity;
+          ctx.fillStyle = this.color;
+          ctx.fillRect(-this.size / 2, -this.size / 4, this.size, this.size / 2);
+          ctx.restore();
+        }
+      }
+
+      for (let i = 0; i < confettiCount; i++) {
+        confettis.push(new ConfettiPiece());
+      }
+
+      function renderConfetti() {
+        ctx.clearRect(0, 0, width, height);
+        confettis.forEach(c => {
+          c.update();
+          c.draw();
+        });
+        requestAnimationFrame(renderConfetti);
+      }
+      renderConfetti();
     }
 
     // ==============================================
@@ -1460,13 +1641,14 @@
 
         const selectedSession = document.querySelector('input[name="weddingSession"]:checked')?.value || "";
         const guestCountValue = (withLoveCheckbox && withLoveCheckbox.checked) ? 2 : 1;
+        const finalWish = (guestWishesEl && guestWishesEl.value.trim()) ? guestWishesEl.value.trim() : "Chúc 2 bạn hạnh phúc viên mãn";
 
         logToGoogleSheet({
           action: "Xác nhận tham dự",
           name: guestNameInput ? guestNameInput.value : "",
           session: selectedSession,
           count: guestCountValue,
-          wishes: guestWishesEl ? guestWishesEl.value : "",
+          wishes: finalWish,
           timestamp: new Date().toLocaleString("vi-VN")
         });
 

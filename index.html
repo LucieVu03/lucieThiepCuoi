@@ -759,7 +759,44 @@
 
   <script>
     AOS.init({ duration: 800, once: true });
+// ==============================================
+    // FUNCTION ĐẾM NGƯỢC ĐẾN NGÀY CƯỚI (18/10/2026 08:00)
+    // ==============================================
+    const weddingDate = new Date("2026-10-18T08:00:00+07:00").getTime();
 
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+
+      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+      if (distance < 0) {
+        daysEl.innerText = "00";
+        hoursEl.innerText = "00";
+        minutesEl.innerText = "00";
+        secondsEl.innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.innerText = days < 10 ? "0" + days : days;
+      hoursEl.innerText = hours < 10 ? "0" + hours : hours;
+      minutesEl.innerText = minutes < 10 ? "0" + minutes : minutes;
+      secondsEl.innerText = seconds < 10 ? "0" + seconds : seconds;
+    }
+
+    // Chạy ngay khi tải trang và lặp lại mỗi 1 giây
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
     // ==============================================
     // LINK GOOGLE APPS SCRIPT CỦA BẠN ĐÃ CẬP NHẬT
     // ==============================================
@@ -929,14 +966,16 @@
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").replace(/[^a-zA-Z0-9 ]/g, " ").trim();
     }
 
-    function updateQrContent() {
+function updateQrContent() {
       const rawWish = guestWishesInput.value || "Chuc 2 ban hanh phuc vien man";
       const cleanWish = removeVietnameseTones(rawWish).substring(0, 35);
       const memo = `MUNG CUOI HOANG LAN - ${cleanWish}`;
       
       qrWishPreview.innerText = `Mung cuoi Hoang Lan - ${rawWish}`;
-      dynamicQrImg.src = `https://img.vietqr.io/image/VCB-1018861099-compact.png?accountName=VU%20THI%20HOANG%20LAN&addInfo=${encodeURIComponent(memo)}`;
+      if (qrWishCaption) qrWishCaption.innerText = memo;
       
+      // Dùng template 'print' để ảnh có sẵn Tên người nhận + Số tài khoản + Text và KHÔNG hiện số tiền
+      dynamicQrImg.src = `https://img.vietqr.io/image/VCB-1018861099-print.png?accountName=VU%20THI%20HOANG%20LAN&addInfo=${encodeURIComponent(memo)}`;
       document.getElementById('openBankDeepLinkBtn').href = `https://dl.vietqr.io/pay?app=vcb&ba=1018861099@vcb&tn=${encodeURIComponent(memo)}`;
     }
 

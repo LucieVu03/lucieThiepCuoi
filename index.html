@@ -67,6 +67,35 @@
     .spinning { animation: spin 4s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
+    /* NÚT 3D KẸO DẺO (JELLY BUTTON) */
+    .btn-jelly {
+      background: linear-gradient(to bottom, #fde047, #ca8a04);
+      box-shadow: 0 8px 0 #a16207, 0 15px 25px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,0.6);
+      border: 1px solid #fef08a;
+      color: #7D0B14;
+      text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-jelly:active {
+      transform: translateY(8px);
+      box-shadow: 0 0px 0 #a16207, 0 5px 10px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,0.6);
+    }
+
+    /* ĐÔI PHONG BÌ LẮC LƯ - NGHỈ - LẮC LƯ */
+    @keyframes wiggle-pause {
+      0%, 15% { transform: rotate(0deg); }
+      2% { transform: rotate(-12deg); }
+      4% { transform: rotate(12deg); }
+      6% { transform: rotate(-12deg); }
+      8% { transform: rotate(12deg); }
+      10% { transform: rotate(-6deg); }
+      12% { transform: rotate(6deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .wiggle-pause-animate {
+      animation: wiggle-pause 3s infinite;
+    }
+
     /* Cửa vòm */
     .arch-frame {
       border-top-left-radius: 9999px;
@@ -77,64 +106,6 @@
       border: 1px solid #C5A059;
       outline: 2px solid rgba(197, 160, 89, 0.4);
       outline-offset: 4px;
-    }
-
-    /* Đôi Phong Bì Lắc Lư Góc Phải */
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg) scale(1); }
-      20% { transform: rotate(-10deg) scale(1.05); }
-      40% { transform: rotate(10deg) scale(1.05); }
-      60% { transform: rotate(-6deg) scale(1.03); }
-      80% { transform: rotate(6deg) scale(1.03); }
-    }
-    .wiggle-animate {
-      animation: wiggle 2.8s ease-in-out infinite;
-    }
-
-    /* Nút 3D Nổi */
-    .btn-3d {
-      box-shadow: 0 6px 0 #8C6F2D, 0 10px 20px rgba(0,0,0,0.35);
-      transition: all 0.15s ease-in-out;
-    }
-    .btn-3d:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #8C6F2D, 0 4px 8px rgba(0,0,0,0.25);
-    }
-
-    /* Swiper 3D Album */
-    .swiper-3d-gallery {
-      width: 100%;
-      padding-top: 15px;
-      padding-bottom: 35px;
-    }
-    .swiper-3d-gallery .swiper-slide {
-      width: 275px;
-      height: 415px;
-      border-radius: 16px;
-      box-shadow: 0 16px 32px rgba(0,0,0,0.22);
-      overflow: hidden;
-      background-color: #fff;
-      padding: 8px 8px 30px 8px;
-      border: 1px solid #E8CA8C;
-      position: relative;
-    }
-    @media (min-width: 768px) {
-      .swiper-3d-gallery .swiper-slide {
-        width: 340px;
-        height: 500px;
-      }
-    }
-    .swiper-button-next, .swiper-button-prev {
-      width: 38px;
-      height: 38px;
-      background-color: rgba(255, 255, 255, 0.92);
-      border-radius: 50%;
-      color: #7D0B14;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-    }
-    .swiper-button-next:after, .swiper-button-prev:after {
-      font-size: 15px;
-      font-weight: bold;
     }
 
     /* Tim bay */
@@ -162,43 +133,55 @@
       pointer-events: none !important;
     }
 
-    /* Cuốn Sổ Lật Trang (Book Swiper) */
-    .book-slider {
-      width: 100%;
-      padding: 10px 0 30px 0;
+    /* SỔ LÒ XO (Spiral Binding) */
+    .spiral-book {
+      position: relative;
+      background-color: #FFFDF9;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15), inset -5px 0 15px rgba(0,0,0,0.03);
+      border: 2px solid #E8CA8C;
+      padding-left: 28px; /* Chừa khoảng trống cho gáy lò xo */
     }
-    .book-slider .swiper-slide {
-      background-color: #FFFBF0;
-      border-radius: 18px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-      border: 2px solid #C5A059;
-      padding: 14px;
+    .spiral-ring {
+      width: 24px;
+      height: 8px;
+      background: linear-gradient(to bottom, #f3f4f6, #9ca3af, #f3f4f6);
+      border: 1px solid #6b7280;
+      border-radius: 8px;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      margin-left: -18px;
+      position: relative;
+      z-index: 20;
     }
 
-    /* Hiệu ứng nổi bật cho ảnh khi xuất hiện */
     .img-fade-zoom {
-      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    .img-fade-zoom:hover {
-      transform: scale(1.03);
-    }
+    .img-fade-zoom:hover { transform: scale(1.03); }
   </style>
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
 
-  <!-- CANVAS PHÁO GIẤY RƠI LIÊN TỤC NGAY TỪ ĐẦU -->
+  <!-- CANVAS PHÁO GIẤY RƠI LIÊN TỤC -->
   <canvas id="confetti-canvas"></canvas>
 
   <!-- ============================================== -->
   <!-- 1. MÀN HÌNH CHÀO MỞ THIỆP -->
   <!-- ============================================== -->
-  <div id="welcomeOverlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-wedding-redDark">
-    <!-- Nền mờ ảnh cưới TUYEN_LAN_3.jpg -->
-    <div class="absolute inset-0 bg-cover bg-center filter brightness-[0.32] blur-[2px]" 
+  <div id="welcomeOverlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-wedding-redDark overflow-hidden">
+    <!-- Nền mờ ảnh cưới & Họa tiết Chữ Hỷ ẩn -->
+    <div class="absolute inset-0 bg-cover bg-center filter brightness-[0.25] blur-[2px]" 
          style="background-image: url('./TUYEN_LAN_3.jpg');"></div>
+    
+    <!-- Các chữ Hỷ ẩn lấp ló trên nền -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div class="absolute -top-10 -left-10 text-[12rem] md:text-[18rem] font-serif text-wedding-gold/20 opacity-40 rotate-12">囍</div>
+      <div class="absolute top-1/2 -right-16 text-[14rem] md:text-[20rem] font-serif text-wedding-gold/20 opacity-40 -rotate-12 translate-y-[-50%]">囍</div>
+      <div class="absolute -bottom-16 left-1/4 text-[10rem] md:text-[16rem] font-serif text-wedding-gold/20 opacity-40 rotate-6">囍</div>
+    </div>
 
-    <div class="relative w-full max-w-xs md:max-w-sm bg-gradient-to-b from-wedding-red to-wedding-redDark rounded-3xl p-6 text-center text-white border-2 border-wedding-gold/60 shadow-2xl overflow-hidden">
-      <!-- Ảnh số 3 hiển thị trang trọng trên bìa -->
+    <div class="relative z-10 w-full max-w-xs md:max-w-sm bg-gradient-to-b from-wedding-red to-wedding-redDark rounded-3xl p-6 text-center text-white border-2 border-wedding-gold/60 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+      <!-- Ảnh số 3 hiển thị trên bìa -->
       <div class="w-36 h-48 mx-auto rounded-2xl overflow-hidden border-2 border-wedding-gold shadow-2xl mb-4 bg-wedding-cream img-fade-zoom">
         <img src="./TUYEN_LAN_3.jpg" class="w-full h-full object-cover" alt="Mạnh Tuyên & Hoàng Lan">
       </div>
@@ -214,15 +197,15 @@
       <p class="font-sans text-xs text-wedding-cream/90 mb-1">18 tháng 10, 2026</p>
       <p class="font-serif text-[11px] tracking-widest text-wedding-gold uppercase mb-6 font-semibold">THÂN MỜI BẠN</p>
 
-      <!-- Nút Mở Thiệp 3D Nổi Bật -->
-      <button id="openCardBtn" class="btn-3d w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-wedding-goldLight via-wedding-gold to-amber-500 text-wedding-redDark font-serif text-xs font-bold tracking-widest uppercase cursor-pointer">
-        ✉️ MỞ THIỆP CƯỚI
+      <!-- Nút 3D Kẹo Dẻo -->
+      <button id="openCardBtn" class="btn-jelly w-full py-3.5 px-6 rounded-full font-serif text-xs font-bold tracking-widest uppercase cursor-pointer relative overflow-hidden">
+        💌 MỞ THIỆP CƯỚI
       </button>
     </div>
   </div>
 
   <!-- ============================================== -->
-  <!-- 2. GÓC TRÊN BÊN TRÁI: ĐĨA NHẠC QUAY -->
+  <!-- 2. GÓC TRÊN TRÁI: ĐĨA NHẠC -->
   <!-- ============================================== -->
   <div class="fixed top-3 left-3 z-50">
     <button id="musicToggle" class="w-10 h-10 rounded-full bg-wedding-red/90 text-white flex items-center justify-center shadow-xl border border-wedding-gold hover:scale-105 transition-all">
@@ -234,24 +217,25 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- 3. GÓC TRÊN BÊN PHẢI: ĐÔI PHONG BÌ MỪNG CƯỚI -->
+  <!-- 3. GÓC TRÊN PHẢI: PHONG BÌ DỌC MỪNG CƯỚI -->
   <!-- ============================================== -->
   <div class="fixed top-3 right-3 z-50">
-    <button id="floatingGiftBtn" class="wiggle-animate flex items-center gap-1.5 bg-gradient-to-r from-wedding-red to-red-700 text-white px-3 py-1.5 rounded-full shadow-2xl border border-wedding-gold hover:scale-105 transition-all">
-      <span class="text-lg leading-none">🧧</span>
-      <span class="text-[11px] font-bold text-amber-200 uppercase tracking-wider">Mừng Cưới</span>
+    <button id="floatingGiftBtn" class="wiggle-pause-animate flex flex-col items-center justify-center bg-white/95 backdrop-blur-md px-2.5 py-1.5 rounded-xl shadow-2xl border border-wedding-gold hover:scale-105 transition-all">
+      <!-- Icon Phong Bì Dọc -->
+      <div class="w-6 h-8 bg-wedding-red rounded-sm relative border border-red-800 shadow-sm flex items-center justify-center overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1/2 border-b border-red-900 bg-red-700" style="clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+        <span class="text-[8px] text-wedding-gold z-10 font-bold mt-2">囍</span>
+      </div>
+      <!-- Chữ Mừng Cưới bên dưới -->
+      <span class="text-[8px] font-bold text-wedding-red uppercase mt-1 text-center leading-[1.2]">Mừng<br>Cưới</span>
     </button>
   </div>
 
-  <!-- POPUP THIỆP MỪNG CƯỚI DỌC & TẢI XUỐNG QR TRỰC TIẾP -->
+  <!-- POPUP THIỆP MỪNG CƯỚI DỌC & TẢI XUỐNG TRỰC TIẾP -->
   <div id="giftModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs hidden">
-    <!-- Thiệp Dọc Chữ Nhật Trang Trọng -->
     <div class="bg-gradient-to-b from-wedding-cream via-white to-wedding-cream w-full max-w-xs md:max-w-sm rounded-3xl p-6 text-center relative border-2 border-wedding-gold shadow-2xl animate-fade">
-      <button id="closeGiftModal" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center font-bold hover:bg-gray-200">
-        ✕
-      </button>
+      <button id="closeGiftModal" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center font-bold hover:bg-gray-200">✕</button>
 
-      <!-- Phần Chữ Bên Trên -->
       <div class="mb-3">
         <span class="inline-block px-3 py-0.5 rounded-full bg-wedding-red/10 text-wedding-red text-[11px] font-bold uppercase tracking-wider mb-1">
           Hộp Mừng Cưới Báo Hỷ
@@ -260,34 +244,42 @@
         <p class="text-xs text-gray-600 font-medium mt-0.5">Vietcombank - <strong class="text-gray-900 font-mono">1018 861 099</strong></p>
       </div>
 
-      <!-- Khung Mã VietQR Trung Tâm -->
+      <!-- QR Code Nạp ẩn CrossOrigin để Tải trực tiếp -->
       <div class="relative inline-block my-1 bg-white p-2 rounded-2xl border-2 border-wedding-gold/50 shadow-md">
-        <img id="dynamicQrImg" class="w-52 h-52 mx-auto rounded-xl" 
+        <img id="dynamicQrImg" crossOrigin="anonymous" class="w-52 h-52 mx-auto rounded-xl" 
              src="https://img.vietqr.io/image/VCB-1018861099-compact2.png?accountName=VU%20THI%20HOANG%20LAN&addInfo=MUNG%20CUOI%20HOANG%20LAN" alt="QR Cô Dâu">
       </div>
 
-      <!-- Text Lời Chúc Kèm Theo -->
+      <!-- Text Lời Chúc -->
       <div class="bg-amber-50/80 border border-amber-200 p-2.5 rounded-xl my-3 text-left">
-        <p class="text-[10px] text-gray-500 font-bold uppercase">Nội dung chuyển khoản kèm lời chúc:</p>
+        <p class="text-[10px] text-gray-500 font-bold uppercase">Nội dung chuyển khoản tự động:</p>
         <p id="qrWishPreview" class="text-xs text-wedding-red font-semibold italic mt-0.5 truncate">
-          Mung cuoi Hoang Lan - Chuc 2 ban hanh phuc vien man
+          MUNG CUOI HOANG LAN
         </p>
       </div>
 
-      <!-- Nút Tải Xuống Trực Tiếp Ảnh QR Về Máy -->
+      <!-- Link Mở App Ngân Hàng (Deep Link) -->
+      <a id="openBankDeepLinkBtn" 
+         href="https://dl.vietqr.io/pay?app=vcb&ba=1018861099@vcb&tn=MUNG%20CUOI%20HOANG%20LAN" 
+         target="_blank"
+         class="w-full py-2.5 px-4 rounded-xl bg-wedding-red text-white text-xs font-serif font-bold uppercase tracking-wider shadow-md hover:bg-wedding-redDark transition-all flex items-center justify-center gap-2 mb-2">
+        <i class="fa-solid fa-mobile-screen-button text-sm"></i>
+        <span>Mở App Ngân Hàng Tự Động</span>
+      </a>
+
+      <!-- Nút Tải QR Trực Tiếp (Canvas) -->
       <button id="downloadQrBtn" 
-              class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-wedding-red to-red-800 text-white text-xs font-serif font-bold uppercase tracking-wider shadow-lg hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer">
+              class="w-full py-2.5 px-4 rounded-xl bg-white border border-wedding-red text-wedding-red text-xs font-serif font-bold uppercase tracking-wider shadow-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-2 cursor-pointer">
         <i class="fa-solid fa-download text-sm"></i>
-        <span>Tải Trực Tiếp Mã QR Về Máy</span>
+        <span>Tải Ảnh QR Về Máy</span>
       </button>
-      <p class="text-[10px] text-gray-400 mt-2">Tải ảnh QR về máy để mở app ngân hàng quét thanh toán tiện lợi</p>
     </div>
   </div>
 
   <!-- ============================================== -->
   <!-- 4. HEADER / HERO SECTION -->
   <!-- ============================================== -->
-  <header id="mainContent" class="relative bg-wedding-red text-white pt-10 pb-24 px-4 text-center overflow-hidden">
+  <header id="mainContent" class="relative bg-wedding-red text-white pt-8 pb-12 px-4 text-center overflow-hidden">
     <div class="max-w-xl mx-auto" data-aos="fade-down" data-aos-duration="1000">
       <p class="font-serif text-[11px] md:text-xs tracking-[0.2em] uppercase text-wedding-cream/90 mb-3 font-semibold">
         Chào mừng bạn đến với đám cưới của chúng mình
@@ -322,8 +314,8 @@
     </div>
 
     <!-- Khung Vòm Chứa Ảnh Main Số 9 -->
-    <div class="relative -mb-24 max-w-[260px] md:max-w-xs mx-auto mt-1" data-aos="zoom-in" data-aos-duration="1200">
-      <div class="arch-frame p-2 bg-gradient-to-b from-wedding-gold via-wedding-goldLight to-wedding-cream shadow-2xl">
+    <div class="relative max-w-[260px] md:max-w-xs mx-auto mt-1" data-aos="zoom-in" data-aos-duration="1200">
+      <div class="arch-frame p-2 bg-gradient-to-b from-wedding-gold via-wedding-goldLight to-wedding-cream shadow-2xl relative z-10">
         <div class="arch-frame overflow-hidden bg-wedding-cream border-2 border-white aspect-[3/4] img-fade-zoom">
           <img src="./TUYEN_LAN_9.JPG" alt="Mạnh Tuyên & Hoàng Lan" class="w-full h-full object-cover object-top">
         </div>
@@ -331,8 +323,14 @@
     </div>
   </header>
 
-  <!-- Đệm khoảng trắng -->
-  <div class="h-24 md:h-28"></div>
+  <!-- DẢI CHỮ HỶ & HOA LÁ KẾT NỐI -->
+  <div class="w-full overflow-hidden bg-gradient-to-b from-wedding-red to-[#FBF7F0] flex justify-center items-center gap-5 py-8 pb-12 select-none">
+    <span class="text-wedding-goldLight text-xl opacity-80">🌿</span>
+    <span class="font-serif text-3xl text-wedding-goldLight opacity-60">囍</span>
+    <span class="text-wedding-goldLight text-xl opacity-80">🌿</span>
+    <span class="font-serif text-3xl text-wedding-goldLight opacity-60">囍</span>
+    <span class="text-wedding-goldLight text-xl opacity-80">🌿</span>
+  </div>
 
   <!-- ============================================== -->
   <!-- 5. PHẦN LỊCH THÁNG 10 & NGÀY CƯỚI NỔI BẬT -->
@@ -418,8 +416,9 @@
           <!-- 1. CHỦ NHẬT: MỜI CỖ + LỄ CƯỚI -->
           <div class="bg-gradient-to-r from-amber-50 to-amber-100/80 p-3.5 rounded-2xl border-2 border-wedding-gold shadow-xs">
             <div class="flex items-center justify-between mb-1">
-              <span class="px-2.5 py-0.5 bg-wedding-red text-white text-[10px] font-bold rounded-full uppercase">
-                🍽️ MỜI CỖ + LỄ CƯỚI
+              <span class="px-2.5 py-0.5 bg-wedding-red text-white text-[10px] font-bold rounded-full uppercase flex gap-1 items-center">
+                <i class="fa-solid fa-champagne-glasses text-[10px] text-amber-300"></i>
+                MỜI CỖ + LỄ CƯỚI
               </span>
               <span class="text-xs font-bold text-wedding-red">08:00 SÁNG</span>
             </div>
@@ -430,8 +429,9 @@
           <!-- 2. THỨ BẢY: TIỆC MỜI CỖ -->
           <div class="bg-white/90 p-3.5 rounded-2xl border border-wedding-gold/40 shadow-xs">
             <div class="flex items-center justify-between mb-1">
-              <span class="px-2.5 py-0.5 bg-amber-600 text-white text-[10px] font-bold rounded-full uppercase">
-                🍲 TIỆC MỜI CỖ
+              <span class="px-2.5 py-0.5 bg-amber-600 text-white text-[10px] font-bold rounded-full uppercase flex gap-1 items-center">
+                <i class="fa-solid fa-utensils text-[10px]"></i>
+                TIỆC MỜI CỖ
               </span>
               <span class="text-xs font-bold text-amber-700">18:00 CHIỀU</span>
             </div>
@@ -525,54 +525,58 @@
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
         </div>
-        <p id="slideIndexText" class="text-xs font-mono text-gray-500">1 / 8</p>
       </div>
     </div>
   </section>
 
   <!-- ============================================== -->
-  <!-- 8. NHẬT KÝ YÊU THƯƠNG: VUỐT NGANG LẬT TRANG NHƯ MỞ SÁCH -->
+  <!-- 8. NHẬT KÝ YÊU THƯƠNG: SỔ LÒ XO VUỐT NGANG -->
   <!-- ============================================== -->
   <section class="py-8 px-4 max-w-sm md:max-w-md mx-auto" data-aos="fade-up" data-aos-duration="1000">
-    <div class="text-center mb-3">
+    <div class="text-center mb-5">
       <h2 class="font-script text-4xl text-wedding-red mb-0.5">Nhật Ký Yêu Thương</h2>
-      <p class="font-serif italic text-xs text-wedding-gold">Vuốt sang ngang để mở từng trang kỷ niệm 📖</p>
+      <p class="font-serif italic text-[11px] text-wedding-gold">Vuốt sang ngang để mở từng trang kỷ niệm 📖</p>
     </div>
 
-    <!-- Swiper Sách Ảnh Lật Trang -->
-    <div class="swiper book-slider">
-      <div class="swiper-wrapper">
-        <!-- Trang 1 -->
-        <div class="swiper-slide">
-          <div class="bg-white p-2.5 pb-4 rounded-xl shadow-md border border-amber-200 img-fade-zoom">
-            <img src="./TUYEN_LAN_2.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="Kỷ niệm">
-            <p class="font-serif italic text-xs text-center text-gray-700 mt-2 font-semibold">"Nụ cười rạng rỡ ngày đầu gặp gỡ ✨"</p>
+    <!-- Sổ Lò Xo -->
+    <div class="spiral-book">
+      <!-- Gáy kẽm lò xo -->
+      <div class="absolute top-0 bottom-0 left-2 w-4 flex flex-col justify-evenly z-20 pointer-events-none py-4">
+        <div class="spiral-ring"></div><div class="spiral-ring"></div><div class="spiral-ring"></div>
+        <div class="spiral-ring"></div><div class="spiral-ring"></div><div class="spiral-ring"></div>
+        <div class="spiral-ring"></div><div class="spiral-ring"></div><div class="spiral-ring"></div>
+        <div class="spiral-ring"></div><div class="spiral-ring"></div>
+      </div>
+
+      <!-- Swiper Sách Ảnh Lật Trang -->
+      <div class="swiper book-slider overflow-hidden rounded-r-xl pr-2 pb-2">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom">
+              <img src="./TUYEN_LAN_2.jpg" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm">
+              <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"Nụ cười rạng rỡ ngày đầu gặp gỡ ✨"</p>
+            </div>
           </div>
-        </div>
-        <!-- Trang 2 -->
-        <div class="swiper-slide">
-          <div class="bg-white p-2.5 pb-4 rounded-xl shadow-md border border-amber-200 img-fade-zoom">
-            <img src="./TUYEN_LAN_3.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="Kỷ niệm">
-            <p class="font-serif italic text-xs text-center text-gray-700 mt-2 font-semibold">"Cùng nhau bước qua năm tháng thanh xuân 💌"</p>
+          <div class="swiper-slide">
+            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom">
+              <img src="./TUYEN_LAN_3.jpg" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm">
+              <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"Cùng nhau bước qua thanh xuân 💌"</p>
+            </div>
           </div>
-        </div>
-        <!-- Trang 3 -->
-        <div class="swiper-slide">
-          <div class="bg-white p-2.5 pb-4 rounded-xl shadow-md border border-amber-200 img-fade-zoom">
-            <img src="./TUYEN_LAN_13.JPG" class="w-full aspect-[3/4] object-cover rounded-lg" alt="Kỷ niệm">
-            <p class="font-serif italic text-xs text-center text-gray-700 mt-2 font-semibold">"Bình yên là khi có anh và em kề bên 🌿"</p>
+          <div class="swiper-slide">
+            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom">
+              <img src="./TUYEN_LAN_13.JPG" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm">
+              <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"Bình yên là khi có anh và em kề bên 🌿"</p>
+            </div>
           </div>
-        </div>
-        <!-- Trang 4 -->
-        <div class="swiper-slide">
-          <div class="bg-white p-2.5 pb-4 rounded-xl shadow-md border border-amber-200 img-fade-zoom">
-            <img src="./TUYEN_LAN_6.jpg" class="w-full aspect-[3/4] object-cover rounded-lg" alt="Kỷ niệm">
-            <p class="font-serif italic text-xs text-center text-gray-700 mt-2 font-semibold">"Nắm tay nhau đi hết trọn cuộc đời 💍"</p>
+          <div class="swiper-slide">
+            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom">
+              <img src="./TUYEN_LAN_6.jpg" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm">
+              <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"Nắm tay nhau đi hết trọn cuộc đời 💍"</p>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Phân trang sách -->
-      <div class="swiper-pagination mt-2"></div>
     </div>
   </section>
 
@@ -582,51 +586,56 @@
   <section id="rsvpSection" class="py-10 bg-wedding-creamLight border-t border-wedding-gold/30 px-4">
     <div class="max-w-sm md:max-w-md mx-auto bg-white p-6 rounded-3xl shadow-xl double-border-gold" data-aos="fade-up">
       <h2 class="font-script text-4xl text-wedding-red text-center mb-1">Gửi Lời Chúc Đến Lan</h2>
-      <p class="text-gray-500 text-xs text-center mb-5">Xác nhận tham dự để Lan chuẩn bị đón tiếp chu đáo nhé!</p>
+      <p class="text-gray-500 text-[11px] text-center mb-5">Xác nhận tham dự để Lan chuẩn bị đón tiếp chu đáo nhé!</p>
 
       <form id="rsvpForm" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Tên của bạn *</label>
+          <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-1">Tên của bạn *</label>
           <input type="text" id="guestName" required placeholder="Họ và tên của bạn" 
                  class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30">
         </div>
 
-        <!-- 3 TÙY CHỌN THAM DỰ (MẶC ĐỊNH SÁNG CN) -->
+        <!-- 3 TÙY CHỌN THAM DỰ DẠNG THẺ (MẶC ĐỊNH SÁNG CN) -->
         <div>
-          <label class="block text-xs font-semibold uppercase text-gray-700 mb-2">Bạn sẽ đến chung vui buổi nào? *</label>
+          <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-2">Bạn sẽ đến chung vui buổi nào? *</label>
           <div class="space-y-2">
             <!-- Mặc định chọn Sáng CN -->
-            <label class="session-card cursor-pointer border-2 border-wedding-red bg-wedding-red text-white p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-4 shadow-sm">
-              <input type="radio" name="weddingSession" value="Chủ Nhật, 8h (Sáng 18-10): Mời Cỗ + Lễ Cưới" class="hidden" checked>
-              <span class="text-xs font-bold uppercase tracking-wider">CN, 8h (Sáng 18-10)</span>
-              <span class="text-xs text-amber-200 font-semibold">✓ Mời Cỗ + Lễ Cưới</span>
+            <label class="session-card cursor-pointer border-2 border-wedding-red bg-wedding-red text-white p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-sm">
+              <input type="radio" name="weddingSession" value="Chủ Nhật, 8h (18-10)" class="hidden" checked>
+              <div class="text-left leading-tight">
+                <span class="text-[11px] font-bold uppercase tracking-wider block">CN, 8h Sáng</span>
+                <span class="text-[10px] text-amber-200">Ngày 18/10</span>
+              </div>
+              <span class="text-[10px] font-semibold">✓ Mời Cỗ & Lễ Cưới</span>
             </label>
 
-            <!-- Tùy chọn 2: Chiều Thứ 7 -->
-            <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-4 shadow-xs hover:border-wedding-red">
-              <input type="radio" name="weddingSession" value="Thứ 7, 18h (Chiều 17-10): Tiệc Mời Cỗ" class="hidden">
-              <span class="text-xs font-bold uppercase tracking-wider">Thứ 7, 18h (17-10)</span>
-              <span class="text-xs text-gray-400 font-semibold">Tiệc Mời Cỗ</span>
+            <!-- Chiều Thứ 7 -->
+            <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-xs hover:border-wedding-red">
+              <input type="radio" name="weddingSession" value="Thứ 7, 18h (17-10)" class="hidden">
+              <div class="text-left leading-tight">
+                <span class="text-[11px] font-bold uppercase tracking-wider block">Thứ 7, 18h</span>
+                <span class="text-[10px] text-gray-400">Ngày 17/10</span>
+              </div>
+              <span class="text-[10px] font-semibold text-gray-500">Tiệc Mời Cỗ</span>
             </label>
 
-            <!-- Tùy chọn 3: Mình sẽ cố gắng sắp xếp đến -->
-            <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-4 shadow-xs hover:border-wedding-red">
+            <!-- Sắp xếp đến -->
+            <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-xs hover:border-wedding-red">
               <input type="radio" name="weddingSession" value="Mình sẽ cố gắng sắp xếp đến" class="hidden">
-              <span class="text-xs font-bold tracking-wide">Mình sẽ cố gắng sắp xếp đến</span>
-              <span class="text-xs text-gray-400 font-semibold">Sắp xếp</span>
+              <span class="text-[11px] font-bold tracking-wide">Mình sẽ cố gắng sắp xếp đến</span>
+              <span class="text-[10px] text-gray-400 font-semibold">Sắp xếp</span>
             </label>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Số người tham dự</label>
+          <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-1">Số người tham dự</label>
           <input type="number" id="guestCount" min="1" value="1" 
                  class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30">
         </div>
 
-        <!-- LỜI CHÚC CÓ CHỮ MẶC ĐỊNH -->
         <div>
-          <label class="block text-xs font-semibold uppercase text-gray-700 mb-1">Lời chúc mừng</label>
+          <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-1">Lời chúc mừng (để nạp vào mã QR)</label>
           <textarea id="guestWishes" rows="2" 
                     class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30">Chúc 2 bạn hạnh phúc viên mãn</textarea>
         </div>
@@ -642,23 +651,22 @@
 
   <!-- THANH TƯƠNG TÁC ĐÁY MÀN HÌNH -->
   <div class="fixed bottom-3 inset-x-3 max-w-sm mx-auto z-40">
-    <div class="bg-white/92 backdrop-blur-md border border-wedding-gold/50 shadow-2xl rounded-full px-4 py-2 flex items-center justify-between">
-      <a href="#rsvpSection" class="flex items-center gap-1 text-wedding-red text-xs font-semibold px-2 py-1">
+    <div class="bg-white/95 backdrop-blur-md border border-wedding-gold/50 shadow-2xl rounded-full px-4 py-2 flex items-center justify-between">
+      <a href="#rsvpSection" class="flex items-center gap-1 text-wedding-red text-[11px] font-semibold px-2 py-1">
         <i class="fa-regular fa-comment-dots text-sm"></i>
         <span>Lời chúc</span>
       </a>
 
       <div class="h-4 w-[1px] bg-gray-200"></div>
 
-      <button id="heartBtn" class="flex items-center gap-1 text-rose-600 active:scale-95 transition-all text-xs font-semibold px-2 py-1">
+      <button id="heartBtn" class="flex items-center gap-1 text-rose-600 active:scale-95 transition-all text-[11px] font-semibold px-2 py-1">
         <span class="text-sm">💖</span>
         <span>Thả tim (<span id="heartCount">205</span>)</span>
       </button>
 
       <div class="h-4 w-[1px] bg-gray-200"></div>
 
-      <!-- Nút Bắn Pháo Hoa Dưới Lên -->
-      <button id="confettiBtn" class="flex items-center gap-1 text-amber-600 active:scale-95 transition-all text-xs font-semibold px-2 py-1">
+      <button id="confettiBtn" class="flex items-center gap-1 text-amber-600 active:scale-95 transition-all text-[11px] font-semibold px-2 py-1 relative">
         <span class="text-sm">🎉</span>
         <span>Bắn pháo</span>
       </button>
@@ -672,7 +680,10 @@
   <script>
     AOS.init({ duration: 800, once: true });
 
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxZZRO8ftVpeZuR4weJhRvZ5EhqtiRAQYivAGb_1bH_i8O23a02lYJiYeZ0EjX8qeHB/exec"; 
+    // ==============================================
+    // LINK GOOGLE APPS SCRIPT CỦA BẠN ĐÃ CẬP NHẬT
+    // ==============================================
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyRfr64B147btZaCK7MUSy8KmZ9aqrQSNZ3QqxY4MdFOJGJRyjxnU3lMzPe38LOKyx9/exec"; 
 
     function logToGoogleSheet(payload) {
       if (!GOOGLE_SHEET_WEBAPP_URL) return;
@@ -701,7 +712,7 @@
     });
 
     const colors = ['#7D0B14', '#C5A059', '#E8CA8C', '#F8BBD0', '#FFD54F', '#FFFFFF'];
-    const confettiCount = 38;
+    const confettiCount = 35;
     const confettis = [];
 
     class ConfettiPiece {
@@ -749,14 +760,14 @@
     renderConfetti();
 
     // ==============================================
-    // SỰ KIỆN NÚT "MỞ THIỆP" - BẮN PHÁO TỪ NÚT & CUỘN NHẸ ĐỀU LÊN
+    // SỰ KIỆN NÚT "MỞ THIỆP" - BẮN PHÁO TỪ NÚT & CUỘN NHẸ LÊN
     // ==============================================
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicToggle');
     const musicIcon = document.getElementById('musicIcon');
     let isPlaying = false;
 
-    // Hàm cuộn nhẹ đều từ từ (Linear Smooth Scroll)
+    // Cuộn siêu mượt (Cinematic Scroll)
     function smoothScrollDown(targetY, duration) {
       const startY = window.pageYOffset;
       const diff = targetY - startY;
@@ -766,49 +777,40 @@
         if (!start) start = timestamp;
         const progress = timestamp - start;
         const percent = Math.min(progress / duration, 1);
-        
-        // Easing mượt mà
         const ease = percent < 0.5 ? 2 * percent * percent : -1 + (4 - 2 * percent) * percent;
         window.scrollTo(0, startY + diff * ease);
-
-        if (progress < duration) {
-          window.requestAnimationFrame(step);
-        }
+        if (progress < duration) window.requestAnimationFrame(step);
       }
       window.requestAnimationFrame(step);
     }
 
-    document.getElementById('openCardBtn').addEventListener('click', function(e) {
+    document.getElementById('openCardBtn').addEventListener('click', function() {
       const rect = this.getBoundingClientRect();
       const originX = (rect.left + rect.width / 2) / window.innerWidth;
       const originY = (rect.top + rect.height / 2) / window.innerHeight;
 
-      // 1. Bắn pháo hoa bung nở từ chính tâm nút bấm
+      // Bắn pháo bung tỏa từ tâm nút
       confetti({
-        particleCount: 85,
+        particleCount: 90,
         spread: 90,
         origin: { x: originX, y: originY },
         colors: ['#7D0B14', '#C5A059', '#E8CA8C', '#F8BBD0', '#FFD54F']
       });
 
-      // 2. Ẩn màn hình chào
       document.getElementById('welcomeOverlay').classList.add('overlay-hidden');
 
-      // 3. Tự động phát nhạc
       bgMusic.play().then(() => {
         isPlaying = true;
         musicIcon.className = 'fa-solid fa-compact-disc text-base spinning';
       }).catch(() => {});
 
-      // 4. Tự động cuốn nhẹ nhàng, đều êm lên phần nội dung chính
       setTimeout(() => {
         const targetElement = document.getElementById('mainContent');
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-        smoothScrollDown(targetPosition, 1600); // Cuộn êm trong 1.6 giây
-      }, 500);
+        smoothScrollDown(targetPosition, 1800); // 1.8s cuộn rất từ từ êm ái
+      }, 600);
     });
 
-    // Bật/tắt nhạc góc trái
     musicBtn.addEventListener('click', () => {
       if (isPlaying) {
         bgMusic.pause();
@@ -823,27 +825,26 @@
     });
 
     // ==============================================
-    // HỘP MỪNG CƯỚI & TẢI XUỐNG QR TRỰC TIẾP
+    // HỘP MỪNG CƯỚI & TẢI XUỐNG QR TRỰC TIẾP CANVAS
     // ==============================================
     const giftModal = document.getElementById('giftModal');
     const dynamicQrImg = document.getElementById('dynamicQrImg');
     const qrWishPreview = document.getElementById('qrWishPreview');
+    const guestWishesInput = document.getElementById('guestWishes');
 
     function removeVietnameseTones(str) {
-      return str.normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/đ/g, "d").replace(/Đ/g, "D")
-        .replace(/[^a-zA-Z0-9 ]/g, " ")
-        .trim();
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").replace(/[^a-zA-Z0-9 ]/g, " ").trim();
     }
 
     function updateQrContent() {
-      const rawWish = document.getElementById('guestWishes').value || "Chuc 2 ban hanh phuc vien man";
+      const rawWish = guestWishesInput.value || "Chuc 2 ban hanh phuc vien man";
       const cleanWish = removeVietnameseTones(rawWish).substring(0, 35);
       const memo = `MUNG CUOI HOANG LAN - ${cleanWish}`;
       
       qrWishPreview.innerText = `Mung cuoi Hoang Lan - ${rawWish}`;
       dynamicQrImg.src = `https://img.vietqr.io/image/VCB-1018861099-compact2.png?accountName=VU%20THI%20HOANG%20LAN&addInfo=${encodeURIComponent(memo)}`;
+      
+      document.getElementById('openBankDeepLinkBtn').href = `https://dl.vietqr.io/pay?app=vcb&ba=1018861099@vcb&tn=${encodeURIComponent(memo)}`;
     }
 
     document.getElementById('floatingGiftBtn').addEventListener('click', () => {
@@ -857,35 +858,40 @@
       if (e.target === giftModal) giftModal.classList.add('hidden');
     });
 
-    // Xử lý nút TẢI TRỰC TIẾP ẢNH QR VỀ MÁY
-    document.getElementById('downloadQrBtn').addEventListener('click', async function() {
-      this.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Đang tải xuống...</span>`;
+    guestWishesInput.addEventListener('input', updateQrContent);
+
+    // TẢI TRỰC TIẾP ẢNH QR VỀ MÁY (SỬ DỤNG CANVAS ĐỂ KO BỊ MỞ TAB MỚI)
+    document.getElementById('downloadQrBtn').addEventListener('click', function() {
+      const originalHtml = this.innerHTML;
+      this.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Đang tải...</span>`;
+      
       try {
-        const response = await fetch(dynamicQrImg.src);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
+        const canvasObj = document.createElement('canvas');
+        canvasObj.width = dynamicQrImg.naturalWidth || 600;
+        canvasObj.height = dynamicQrImg.naturalHeight || 600;
+        const ctxObj = canvasObj.getContext('2d');
+        
+        ctxObj.drawImage(dynamicQrImg, 0, 0);
+        const dataURL = canvasObj.toDataURL('image/png');
+        
         const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
+        a.href = dataURL;
         a.download = 'QR_MungCuoi_HoangLan.png';
         document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
         this.innerHTML = `<i class="fa-solid fa-check"></i> <span>Đã tải thành công!</span>`;
       } catch (err) {
-        // Fallback mở tab mới nếu trình duyệt chặn
         window.open(dynamicQrImg.src, '_blank');
-        this.innerHTML = `<i class="fa-solid fa-download text-sm"></i> <span>Tải Trực Tiếp Mã QR Về Máy</span>`;
+        this.innerHTML = originalHtml;
       }
-      setTimeout(() => {
-        this.innerHTML = `<i class="fa-solid fa-download text-sm"></i> <span>Tải Trực Tiếp Mã QR Về Máy</span>`;
-      }, 2500);
+      setTimeout(() => { this.innerHTML = originalHtml; }, 2500);
     });
 
     // ==============================================
     // SWIPER 3D ALBUM
     // ==============================================
-    const slideIndexText = document.getElementById('slideIndexText');
     const swiper = new Swiper(".swiper-3d-gallery", {
       effect: "coverflow",
       grabCursor: true,
@@ -894,26 +900,16 @@
       loop: true,
       autoplay: { delay: 3500, disableOnInteraction: false },
       coverflowEffect: { rotate: 15, stretch: 0, depth: 200, modifier: 1, slideShadows: true },
-      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-      on: {
-        slideChange: function () {
-          slideIndexText.innerText = `${this.realIndex + 1} / 8`;
-        }
-      }
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
     });
 
     // ==============================================
-    // SWIPER SÁCH ẢNH NHẬT KÝ VUỐT NGANG
+    // SWIPER SÁCH LÒ XO (NHẬT KÝ YÊU THƯƠNG)
     // ==============================================
     const bookSwiper = new Swiper(".book-slider", {
       slidesPerView: 1,
-      spaceBetween: 16,
       grabCursor: true,
-      loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
+      loop: true
     });
 
     // ==============================================
@@ -923,29 +919,23 @@
     sessionCards.forEach(card => {
       card.addEventListener('click', () => {
         sessionCards.forEach(c => {
-          c.className = "session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-4 shadow-xs hover:border-wedding-red";
+          c.className = "session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-xs hover:border-wedding-red";
+          const sub = c.querySelector('div span:last-child');
+          if (sub) sub.className = "text-[10px] text-gray-400";
+          const check = c.querySelector('span:last-child');
+          if (check) check.className = "text-[10px] font-semibold text-gray-500";
         });
-        card.className = "session-card cursor-pointer border-2 border-wedding-red bg-wedding-red text-white p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-4 shadow-sm";
+        
+        card.className = "session-card cursor-pointer border-2 border-wedding-red bg-wedding-red text-white p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-sm";
+        const activeSub = card.querySelector('div span:last-child');
+        if (activeSub) activeSub.className = "text-[10px] text-amber-200";
+        const activeCheck = card.querySelector('span:last-child');
+        if (activeCheck) activeCheck.className = "text-[10px] font-semibold text-white";
       });
     });
 
     // ==============================================
-    // COUNTDOWN TIMER
-    // ==============================================
-    const weddingDate = new Date("2026-10-18T08:00:00").getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
-      if (distance > 0) {
-        document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-      }
-    }, 1000);
-
-    // ==============================================
-    // THẢ TIM & BẮN PHÁO TỪ DƯỚI LÊN
+    // THẢ TIM & BẮN PHÁO TỪ ĐÁY LÊN
     // ==============================================
     let heartCount = 205;
     const heartBtn = document.getElementById('heartBtn');
@@ -959,31 +949,28 @@
       heart.className = 'floating-heart';
       heart.innerText = ['💖', '❤', '💕', '🥰'][Math.floor(Math.random() * 4)];
       const rect = heartBtn.getBoundingClientRect();
-      heart.style.left = (rect.left + rect.width / 2) + 'px';
+      heart.style.left = (rect.left + rect.width / 2 - 10) + 'px';
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 2800);
 
-      logToGoogleSheet({
-        action: "Thả tim",
-        name: "Khách bấm thả tim",
-        wishes: `Tổng lượt tim: ${heartCount}`
-      });
+      logToGoogleSheet({ action: "Thả tim", name: "Khách thả tim", wishes: `Lượt tim: ${heartCount}` });
     });
 
-    // Nút Bắn Pháo Hoa Dưới Góc Bắn Ngược Lên
-    document.getElementById('confettiBtn').addEventListener('click', () => {
+    // Pháo Bắn Chéo Từ Nút Lên Giữa Màn Hình
+    const confettiBtn = document.getElementById('confettiBtn');
+    confettiBtn.addEventListener('click', () => {
+      const rect = confettiBtn.getBoundingClientRect();
+      const xPos = (rect.left + rect.width / 2) / window.innerWidth;
+      
       confetti({
         particleCount: 80,
-        angle: 70,
-        spread: 65,
-        origin: { x: 0.85, y: 0.95 }, // Bắn từ góc dưới phải lên
+        spread: 60,
+        origin: { x: xPos, y: 0.9 },
+        angle: 110, // Bắn chéo ngược lên sang trái hướng vào giữa
         colors: ['#7D0B14', '#C5A059', '#E8CA8C', '#F8BBD0', '#FFD54F']
       });
 
-      logToGoogleSheet({
-        action: "Bắn pháo hoa",
-        name: "Khách bắn pháo chúc mừng"
-      });
+      logToGoogleSheet({ action: "Bắn pháo hoa", name: "Khách bắn pháo" });
     });
 
     // ==============================================
@@ -1000,16 +987,14 @@
 
       const selectedSession = document.querySelector('input[name="weddingSession"]:checked')?.value || "";
 
-      const payload = {
+      logToGoogleSheet({
         action: "Xác nhận tham dự",
         name: document.getElementById('guestName').value,
         session: selectedSession,
         count: document.getElementById('guestCount').value,
         wishes: document.getElementById('guestWishes').value,
         timestamp: new Date().toLocaleString("vi-VN")
-      };
-
-      logToGoogleSheet(payload);
+      });
 
       setTimeout(() => {
         statusDiv.innerText = "Cảm ơn bạn rất nhiều! Lời chúc đã được gửi đến Hoàng Lan.";

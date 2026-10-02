@@ -954,33 +954,48 @@
     guestWishesInput.addEventListener('input', updateQrContent);
 
     // TẢI TRỰC TIẾP ẢNH QR VỀ MÁY
-    document.getElementById('downloadQrBtn').addEventListener('click', function() {
-      const originalHtml = this.innerHTML;
-      this.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Đang tải...</span>`;
-      
-      try {
-        const canvasObj = document.createElement('canvas');
-        canvasObj.width = dynamicQrImg.naturalWidth || 600;
-        canvasObj.height = dynamicQrImg.naturalHeight || 600;
-        const ctxObj = canvasObj.getContext('2d');
-        
-        ctxObj.drawImage(dynamicQrImg, 0, 0);
-        const dataURL = canvasObj.toDataURL('image/png');
-        
-        const a = document.createElement('a');
-        a.href = dataURL;
-        a.download = 'QR_MungCuoi_HoangLan.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        this.innerHTML = `<i class="fa-solid fa-check"></i> <span>Đã tải thành công!</span>`;
-      } catch (err) {
-        window.open(dynamicQrImg.src, '_blank');
-        this.innerHTML = originalHtml;
-      }
-      setTimeout(() => { this.innerHTML = originalHtml; }, 2500);
-    });
+ document.getElementById('downloadQrBtn').addEventListener('click', async function() {
+  const btn = this;
+  const originalHtml = btn.innerHTML;
+  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Đang xử lý...</span>`;
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(dynamicQrImg.src);
+    const blob = await response.blob();
+    const file = new File([blob], 'QR_MungCuoi_HoangLan.png', { type: 'image/png' });
+
+    // Cách 1: Dùng Web Share API (đưa thẳng vào bảng Lưu ảnh trên iPhone/Android)
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: 'Mừng cưới Hoàng Lan',
+        text: 'Mã QR mừng cưới Vũ Thị Hoàng Lan'
+      });
+      btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Hoàn tất!</span>`;
+    } else {
+      // Cách 2: Tải truyền thống (vào thư mục Files / Downloads)
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'QR_MungCuoi_HoangLan.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Đã tải vào Tệp!</span>`;
+    }
+  } catch (err) {
+    // Nếu trong Zalo/Facebook bị chặn, mở link ảnh trực tiếp để khách nhấn giữ lưu
+    window.open(dynamicQrImg.src, '_blank');
+    btn.innerHTML = originalHtml;
+  }
+
+  setTimeout(() => {
+    btn.innerHTML = originalHtml;
+    btn.disabled = false;
+  }, 2500);
+});
 
     // ==============================================
     // SWIPER 3D ALBUM (COVERFLOW 3D ĐỨNG THẲNG MƯỢT MÀ)

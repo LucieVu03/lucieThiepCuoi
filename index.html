@@ -686,7 +686,7 @@
         <div class="flex items-center justify-center gap-4 mt-3 pt-2 text-[10px] font-semibold text-gray-600 border-t border-dashed border-amber-200">
           <div class="flex items-center gap-1.5">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-600"></span>
-            <span>Ngày 17: Tiệc Mời Cỗ 🍽️️</span>
+            <span>Ngày 17: Tiệc Mời Cỗ 🍽</span>
           </div>
           <div class="flex items-center gap-1.5">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-wedding-red"></span>
@@ -1031,10 +1031,16 @@
         const num3 = String(i).padStart(3, '0');
         urlsToPreload.push(`./Vintage_${num3}.jpg`, `./Vintage_${i}.jpg`);
       }
-      for (let i = 1; i <= 25; i++) {
+      for (let i = 1; i <= 60; i++) {
         const num3 = String(i).padStart(3, '0');
         const num2 = String(i).padStart(2, '0');
-        urlsToPreload.push(`./NK_${num3}.jpg`, `./NK_${num3}.JPG`, `./NK_${num2}.jpg`, `./NK_${i}.jpg`, `./NK_${i}.JPG`);
+        urlsToPreload.push(
+          `./NK_${num3}.jpg`, `./NK_${num3}.JPG`, 
+          `./NK_${num2}.jpg`, `./NK_${num2}.JPG`, 
+          `./NK_${i}.jpg`, `./NK_${i}.JPG`,
+          `./NK_${i}.jpeg`, `./NK_${i}.JPEG`,
+          `./NK_${i}.png`, `./NK_${i}.PNG`
+        );
       }
 
       urlsToPreload.forEach(src => {
@@ -1325,8 +1331,10 @@
     init3DAlbum();
 
     // ==============================================
-    // 3. NHẬT KÝ YÊU THƯƠNG: HIỆU ỨNG LẬT TRANG SÁCH 3D
+    // 3. NHẬT KÝ YÊU THƯƠNG: QUÉT VÀ HIỂN THỊ TẤT CẢ ẢNH NK_
     // ==============================================
+    let swiperBookInstance = null;
+
     function initNkBookSlider() {
       const wrapper = document.getElementById('nkSliderWrapper');
       if (!wrapper) return;
@@ -1341,26 +1349,53 @@
         "Từ ánh mắt đầu tiên đến hẹn ước trăm năm 🥂",
         "Cảm ơn vì đã luôn ở bên và sẻ chia tất cả 💖",
         "Yêu thương đong đầy theo từng năm tháng 💫",
-        "Hành trình tình yêu nở hoa kết trái 🌹"
+        "Hành trình tình yêu nở hoa kết trái 🌹",
+        "Dịu dàng trao nhau tình yêu chân thành 🍃",
+        "Bên em là bình yên lớn nhất cuộc đời anh ☀️",
+        "Từng bước đi qua đều ghi dấu kỷ niệm ngọt ngào 🍓",
+        "Em là món quà tuyệt vời nhất mà cuộc sống ban tặng 🎁",
+        "Mỗi ngày bên nhau là một ngày trọn vẹn yêu thương 🌷"
       ];
 
-      const maxScan = 35;
+      const maxScan = 60;
       let processed = 0;
-      let isFinalized = false;
-      const foundSlides = [];
+      const foundSlidesMap = new Map();
 
-      function finalizeBook() {
-        if (isFinalized) return;
-        isFinalized = true;
-
-        if (foundSlides.length > 0) {
-          wrapper.innerHTML = '';
-          foundSlides.sort((a, b) => a.index - b.index);
-          foundSlides.forEach(item => wrapper.appendChild(item.element));
+      function createSlideElement(src, index) {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        const quote = quotes[(index - 1) % quotes.length];
+        slide.innerHTML = `
+          <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom cursor-pointer">
+            <img src="${src}" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm ${index}">
+            <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"${quote}"</p>
+          </div>
+        `;
+        const img = slide.querySelector('img');
+        if (img) {
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openLightbox(img.currentSrc || img.src);
+          });
         }
+        return slide;
+      }
+
+      function rebuildBookSlides() {
+        if (foundSlidesMap.size === 0) return;
+
+        const sortedIndices = Array.from(foundSlidesMap.keys()).sort((a, b) => a - b);
+        wrapper.innerHTML = '';
+        sortedIndices.forEach(idx => {
+          wrapper.appendChild(foundSlidesMap.get(idx));
+        });
 
         if (typeof Swiper !== 'undefined') {
-          new Swiper(".book-slider", {
+          if (swiperBookInstance) {
+            swiperBookInstance.destroy(true, true);
+          }
+          swiperBookInstance = new Swiper(".book-slider", {
             effect: "creative",
             grabCursor: true,
             loop: wrapper.children.length > 1,
@@ -1382,58 +1417,59 @@
         }
       }
 
+      let debounceTimer = null;
+      function scheduleRebuild() {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(rebuildBookSlides, 120);
+      }
+
       for (let i = 1; i <= maxScan; i++) {
         const num3 = String(i).padStart(3, '0');
         const num2 = String(i).padStart(2, '0');
         const candidates = [
-          `./NK_${num3}.jpg`,
-          `./NK_${num3}.JPG`,
-          `./NK_${num2}.jpg`,
-          `./NK_${num2}.JPG`,
           `./NK_${i}.jpg`,
           `./NK_${i}.JPG`,
-          `./NK_${i}.png`
+          `./NK_${num2}.jpg`,
+          `./NK_${num2}.JPG`,
+          `./NK_${num3}.jpg`,
+          `./NK_${num3}.JPG`,
+          `./NK_${i}.jpeg`,
+          `./NK_${i}.JPEG`,
+          `./NK_${i}.png`,
+          `./NK_${i}.PNG`
         ];
+        const uniqueCandidates = [...new Set(candidates)];
 
-        let currentCandidateIdx = 0;
+        let cIdx = 0;
         const testImg = new Image();
 
-        function tryNextCandidate() {
-          if (currentCandidateIdx < candidates.length) {
-            testImg.src = candidates[currentCandidateIdx++];
+        function tryNext() {
+          if (cIdx < uniqueCandidates.length) {
+            testImg.src = uniqueCandidates[cIdx++];
           } else {
             processed++;
-            if (processed >= maxScan) finalizeBook();
+            if (processed >= maxScan) {
+              scheduleRebuild();
+            }
           }
         }
 
         testImg.onload = function() {
-          const slide = document.createElement('div');
-          slide.className = 'swiper-slide';
-          const quote = quotes[(i - 1) % quotes.length];
-          slide.innerHTML = `
-            <div class="bg-white p-2 pb-3 rounded-lg shadow-sm border border-amber-100 img-fade-zoom cursor-pointer">
-              <img src="${this.src}" class="w-full aspect-[3/4] object-cover rounded" alt="Kỷ niệm ${i}">
-              <p class="font-serif italic text-[11px] text-center text-gray-700 mt-2 font-semibold">"${quote}"</p>
-            </div>
-          `;
-          slide.querySelector('img').addEventListener('click', (e) => {
-            e.stopPropagation();
-            openLightbox(e.target.currentSrc || e.target.src);
-          });
-          foundSlides.push({ index: i, element: slide });
+          const slide = createSlideElement(this.src, i);
+          foundSlidesMap.set(i, slide);
+          scheduleRebuild();
           processed++;
-          if (processed >= maxScan) finalizeBook();
         };
 
         testImg.onerror = function() {
-          tryNextCandidate();
+          tryNext();
         };
 
-        tryNextCandidate();
+        tryNext();
       }
 
-      setTimeout(finalizeBook, 1500);
+      setTimeout(scheduleRebuild, 1200);
+      setTimeout(scheduleRebuild, 3000);
     }
 
     initNkBookSlider();

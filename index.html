@@ -178,6 +178,64 @@
       animation: wiggle-pause 3s infinite;
     }
 
+    /* HIỆU ỨNG NHẢY NHÓT BÁT ĐĨA ĐŨA NGÀY 17 */
+    @keyframes feast-bounce {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      30% {
+        transform: translateY(-8px) rotate(-12deg) scale(1.15);
+      }
+      60% {
+        transform: translateY(-4px) rotate(12deg) scale(1.1);
+      }
+    }
+    .animate-feast {
+      display: inline-block;
+      animation: feast-bounce 1.3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    /* PHONG CÁCH LÁ THƯ & BAO THƯ CHO PHẦN GỬI LỜI CHÚC */
+    .envelope-card {
+      position: relative;
+      background: #FFFDF8;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(197, 160, 89, 0.16) 28px),
+        linear-gradient(135deg, rgba(255,255,255,0.95), rgba(254,250,242,0.9));
+      border: 2px solid #C5A059;
+      box-shadow: 0 16px 40px rgba(125, 11, 20, 0.12), 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 38px;
+      background: linear-gradient(180deg, #F5ECE0 0%, #EDE1CE 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      border-bottom: 1.5px solid #C5A059;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .envelope-seal {
+      position: absolute;
+      top: 21px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #B22222 30%, #7D0B14 100%);
+      border: 1.5px solid #FFD54F;
+      box-shadow: 0 4px 10px rgba(125, 11, 20, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
     /* MÁY ĐĨA THAN VINYL CÓ CẦN GẠT (TONEARM) - HÌNH TRÒN, ĐỘ TRONG SUỐT 50% */
     .turntable-box {
       width: 44px;
@@ -209,12 +267,12 @@
       height: 22px;
       transform-origin: 9px 3px;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: rotate(-35deg); /* vị trí nghỉ khi dừng */
+      transform: rotate(-35deg);
       pointer-events: none;
       z-index: 10;
     }
     .tonearm.active {
-      transform: rotate(6deg); /* vị trí hạ kim lên đĩa than khi phát */
+      transform: rotate(6deg);
     }
 
     /* THANH TƯƠNG TÁC ĐÁY: NỀN GIẤY VÀNG ÁNH NHŨ VỚI CHỮ HỶ ĐỎ NHỎ XINH */
@@ -333,7 +391,7 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       cursor: grab;
-      scrollbar-width: none; /* Ẩn thanh cuộn xấu */
+      scrollbar-width: none;
       padding: 6px 14px;
     }
     .film-scroll-container::-webkit-scrollbar {
@@ -361,7 +419,7 @@
       border-radius: 2px;
       filter: sepia(0.22) contrast(1.06) brightness(0.97);
       transition: filter 0.3s ease, transform 0.3s ease;
-      pointer-events: none; /* Giúp thao tác kéo drag mượt mà */
+      pointer-events: none;
     }
     .film-frame:hover img {
       filter: sepia(0.05) contrast(1.1) brightness(1.02);
@@ -458,11 +516,8 @@
       </div>
       <!-- Cần gạt kim đĩa than (Tonearm) -->
       <svg id="tonearm" class="tonearm" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Chốt xoay -->
         <circle cx="11" cy="4" r="3" fill="#D4AF37" stroke="#7A5813" stroke-width="0.8"/>
-        <!-- Cần kim loại -->
         <path d="M11 4 L6 18 L3 23" stroke="#E6C875" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Đầu kim đọc đĩa -->
         <rect x="0.5" y="21.5" width="4.5" height="3" rx="0.8" fill="#FFFFFF" stroke="#333333" stroke-width="0.6"/>
       </svg>
     </button>
@@ -486,7 +541,7 @@
         <p class="text-xs text-gray-600 font-medium mt-0.5">Vietcombank - <strong class="text-gray-900 font-mono">1018 861 099</strong></p>
       </div>
 
-      <!-- QR Code: Template print hiển thị đẹp mắt và không có số tiền -->
+      <!-- QR Code -->
       <div class="relative inline-block my-1 bg-white p-2 rounded-2xl border-2 border-wedding-gold/50 shadow-md">
         <img id="dynamicQrImg" crossOrigin="anonymous" class="w-52 h-52 mx-auto rounded-xl object-contain" 
              src="https://img.vietqr.io/image/VCB-1018861099-print.png?accountName=VU%20THI%20HOANG%20LAN&addInfo=MUNG%20CUOI%20HOANG%20LAN" 
@@ -571,7 +626,7 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- 5. PHẦN LỊCH THÁNG 10 & NGÀY CƯỚI NỔI BẬT -->
+  <!-- 5. PHẦN LỊCH THÁNG 10 & NGÀY CƯỚI NỔI BẬT (KHOANH NGÀY 17 VÀ 18) -->
   <!-- ============================================== -->
   <section class="px-4 text-center max-w-sm md:max-w-md mx-auto py-6" data-aos="fade-up" data-aos-duration="900">
     <div class="double-border-gold bg-wedding-creamLight p-5 rounded-3xl shadow-md relative overflow-hidden">
@@ -597,7 +652,16 @@
           <div class="text-gray-300">28</div><div class="text-gray-300">29</div><div class="text-gray-300">30</div>
           <div>1</div><div>2</div><div>3</div><div class="text-wedding-red font-medium">4</div>
           <div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div class="text-wedding-red font-medium">11</div>
-          <div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>
+          <div>12</div><div>13</div><div>14</div><div>15</div><div>16</div>
+          
+          <!-- NGÀY 17 KHOANH TRÒN NỔI BẬT & BÁT ĐĨA ĐŨA NẢY NẢY ĐỂ BIẾT HÔM ĐÓ ĂN CỖ -->
+          <div class="relative flex items-center justify-center">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-amber-600 text-white flex items-center justify-center font-bold text-xs shadow-md ring-2 ring-amber-300 ring-offset-2 mx-auto">
+              17
+            </div>
+            <!-- Icon Bát đĩa đũa 🍽️ nảy nảy sinh động -->
+            <span class="absolute -top-3.5 -right-1 text-sm select-none animate-feast drop-shadow-xs" title="Hôm nay ăn cỗ tiệc cưới!">🍽️</span>
+          </div>
           
           <!-- Ngày 18 Nhẫn Cưới & Trái Tim Đỏ Nhấp Nháy -->
           <div class="relative flex items-center justify-center">
@@ -609,6 +673,18 @@
 
           <div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div class="text-wedding-red font-medium">25</div>
           <div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div><div class="text-gray-300">1</div>
+        </div>
+
+        <!-- Chú thích nhỏ ngày tiệc & lễ cưới -->
+        <div class="flex items-center justify-center gap-4 mt-3 pt-2 text-[10px] text-gray-600 font-medium">
+          <span class="flex items-center gap-1">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span> 
+            <strong>17/10:</strong> Tiệc Mời Cỗ 🍽️
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-wedding-red"></span> 
+            <strong>18/10:</strong> Ngày Cưới Chính 💍
+          </span>
         </div>
       </div>
 
@@ -661,7 +737,7 @@
   </section>
 
   <!-- ============================================== -->
-  <!-- 7. THÔNG TIN TIỆC CƯỚI: HÔN TRƯỜNG NHÀ GÁI -->
+  <!-- 7. THÔNG TIN TIỆC CƯỚI: HÔN TRƯỜNG NHÀ GÁI (OPTION 18H THỨ 7 LÊN ĐẦU TIÊN) -->
   <!-- ============================================== -->
   <section class="py-6 px-4">
     <div class="max-w-sm md:max-w-md mx-auto" data-aos="fade-up" data-aos-duration="1000">
@@ -677,21 +753,8 @@
         </div>
 
         <div class="space-y-3 mb-5">
-          <!-- 1. CHỦ NHẬT: MỜI CỖ + LỄ CƯỚI -->
-          <div class="bg-gradient-to-r from-amber-50 to-amber-100/80 p-3.5 rounded-2xl border-2 border-wedding-gold shadow-xs">
-            <div class="flex items-center justify-between mb-1">
-              <span class="px-2.5 py-0.5 bg-wedding-red text-white text-[10px] font-bold rounded-full uppercase flex gap-1 items-center">
-                <i class="fa-solid fa-champagne-glasses text-[10px] text-amber-300"></i>
-                MỜI CỖ + LỄ CƯỚI
-              </span>
-              <span class="text-xs font-bold text-wedding-red">08:00 SÁNG</span>
-            </div>
-            <p class="text-xs font-bold text-gray-900">Chủ Nhật, ngày 18/10/2026</p>
-            <p class="text-[10px] text-wedding-gold font-medium">(Tức ngày 09/09 Âm Lịch)</p>
-          </div>
-
-          <!-- 2. THỨ BẢY: TIỆC MỜI CỖ -->
-          <div class="bg-white/90 p-3.5 rounded-2xl border border-wedding-gold/40 shadow-xs">
+          <!-- 1. THỨ BẢY: TIỆC MỜI CỖ (ĐẶT LÊN TRÊN ĐẦU TIÊN VÀ MẶC ĐỊNH NỔI BẬT) -->
+          <div class="bg-gradient-to-r from-amber-50 to-amber-100/90 p-3.5 rounded-2xl border-2 border-wedding-gold shadow-sm">
             <div class="flex items-center justify-between mb-1">
               <span class="px-2.5 py-0.5 bg-amber-600 text-white text-[10px] font-bold rounded-full uppercase flex gap-1 items-center">
                 <i class="fa-solid fa-utensils text-[10px]"></i>
@@ -700,7 +763,20 @@
               <span class="text-xs font-bold text-amber-700">18:00 CHIỀU</span>
             </div>
             <p class="text-xs font-bold text-gray-900">Thứ Bảy, ngày 17/10/2026</p>
-            <p class="text-[10px] text-gray-500 font-medium">(Tức ngày 08/09 Âm Lịch)</p>
+            <p class="text-[10px] text-wedding-gold font-medium">(Tức ngày 08/09 Âm Lịch)</p>
+          </div>
+
+          <!-- 2. CHỦ NHẬT: MỜI CỖ + LỄ CƯỚI -->
+          <div class="bg-white/90 p-3.5 rounded-2xl border border-wedding-gold/40 shadow-xs">
+            <div class="flex items-center justify-between mb-1">
+              <span class="px-2.5 py-0.5 bg-wedding-red text-white text-[10px] font-bold rounded-full uppercase flex gap-1 items-center">
+                <i class="fa-solid fa-champagne-glasses text-[10px] text-amber-300"></i>
+                MỜI CỖ + LỄ CƯỚI
+              </span>
+              <span class="text-xs font-bold text-wedding-red">08:00 SÁNG</span>
+            </div>
+            <p class="text-xs font-bold text-gray-900">Chủ Nhật, ngày 18/10/2026</p>
+            <p class="text-[10px] text-gray-500 font-medium">(Tức ngày 09/09 Âm Lịch)</p>
           </div>
         </div>
 
@@ -755,45 +831,69 @@
   </section>
 
   <!-- ============================================== -->
-  <!-- 9. FORM LỜI CHÚC & XÁC NHẬN THAM DỰ -->
+  <!-- 9. FORM LỜI CHÚC & XÁC NHẬN THAM DỰ (DÁNG PHONG BAO THƯ + NỀN LÁ THƯ) -->
   <!-- ============================================== -->
-  <section id="rsvpSection" class="py-10 bg-wedding-creamLight border-t border-wedding-gold/30 px-4">
-    <div class="max-w-sm md:max-w-md mx-auto bg-white p-6 rounded-3xl shadow-xl double-border-gold" data-aos="fade-up">
-      <h2 class="font-script text-4xl text-wedding-red text-center mb-1">Gửi Lời Chúc Đến Lan</h2>
-      <p class="text-gray-500 text-[11px] text-center mb-5">Xác nhận tham dự để Lan chuẩn bị đón tiếp chu đáo nhé!</p>
+  <section id="rsvpSection" class="py-10 bg-wedding-creamLight/60 border-t border-wedding-gold/30 px-4">
+    <!-- Khung Phong Bao Thư & Lá Thư Tình Cảm -->
+    <div class="envelope-card max-w-sm md:max-w-md mx-auto p-6 pt-11 rounded-3xl double-border-gold overflow-hidden" data-aos="fade-up">
+      
+      <!-- Nắp gập phong bao thư hình tam giác -->
+      <div class="envelope-flap"></div>
+      
+      <!-- Con dấu sáp đỏ mang chữ Hỷ vàng trang trọng -->
+      <div class="envelope-seal">
+        <span class="text-white font-serif text-sm font-bold leading-none select-none drop-shadow-xs">囍</span>
+      </div>
 
-      <form id="rsvpForm" class="space-y-4">
+      <!-- Họa tiết góc phong bì & tem thư tình -->
+      <div class="flex items-center justify-between border-b border-wedding-gold/30 pb-3 mb-4 pt-1">
+        <div class="flex items-center gap-1.5 text-wedding-red font-serif text-[11px] font-bold tracking-wider uppercase">
+          <i class="fa-regular fa-envelope text-xs"></i>
+          <span>Thư Mừng Hạnh Phúc</span>
+        </div>
+        <!-- Tem thư trang trí -->
+        <div class="border border-dashed border-wedding-gold px-2 py-0.5 rounded bg-wedding-cream/60 text-[9px] text-wedding-gold font-mono tracking-widest uppercase">
+          17-18.10.2026
+        </div>
+      </div>
+
+      <div class="text-center mb-4">
+        <h2 class="font-script text-4xl text-wedding-red mb-1">Gửi Lời Chúc Đến Lan</h2>
+        <p class="text-stone-600 text-[11px]">Xác nhận tham dự để Lan chuẩn bị đón tiếp chu đáo nhé!</p>
+      </div>
+
+      <form id="rsvpForm" class="space-y-4 relative z-10">
         <div>
           <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-1">Tên của bạn *</label>
           <input type="text" id="guestName" required placeholder="Họ và tên của bạn" 
-                 class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30">
+                 class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-white/80 shadow-inner">
         </div>
 
-        <!-- 3 TÙY CHỌN THAM DỰ -->
+        <!-- 3 TÙY CHỌN THAM DỰ: ĐÃ ĐỔI OPTION 18H THỨ 7 LÊN TRÊN CÙNG LÀM MẶC ĐỊNH -->
         <div>
           <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-2">Bạn sẽ đến chung vui buổi nào? *</label>
           <div class="space-y-2">
-            <!-- Mặc định chọn Sáng CN -->
+            <!-- 1. Thứ 7, 18h (17-10): ĐƯỢC ĐẶT LÊN TRÊN VÀ MẶC ĐỊNH CHỌN -->
             <label class="session-card cursor-pointer border-2 border-wedding-red bg-wedding-red text-white p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-sm">
-              <input type="radio" name="weddingSession" value="Chủ Nhật, 8h (18-10)" class="hidden" checked>
-              <div class="text-left leading-tight">
-                <span class="text-[11px] font-bold uppercase tracking-wider block">CN, 8h Sáng</span>
-                <span class="text-[10px] text-amber-200">Ngày 18/10</span>
-              </div>
-              <span class="text-[10px] font-semibold">✓ Mời Cỗ & Lễ Cưới</span>
-            </label>
-
-            <!-- Chiều Thứ 7 -->
-            <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-xs hover:border-wedding-red">
-              <input type="radio" name="weddingSession" value="Thứ 7, 18h (17-10)" class="hidden">
+              <input type="radio" name="weddingSession" value="Thứ 7, 18h (17-10)" class="hidden" checked>
               <div class="text-left leading-tight">
                 <span class="text-[11px] font-bold uppercase tracking-wider block">Thứ 7, 18h</span>
-                <span class="text-[10px] text-gray-400">Ngày 17/10</span>
+                <span class="text-[10px] text-amber-200">Ngày 17/10</span>
               </div>
-              <span class="text-[10px] font-semibold text-gray-500">Tiệc Mời Cỗ</span>
+              <span class="text-[10px] font-semibold text-white">✓ Tiệc Mời Cỗ 🍽️</span>
             </label>
 
-            <!-- Sắp xếp đến -->
+            <!-- 2. CN, 8h Sáng (18-10): Chuyển xuống vị trí thứ 2 -->
+            <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-xs hover:border-wedding-red">
+              <input type="radio" name="weddingSession" value="Chủ Nhật, 8h (18-10)" class="hidden">
+              <div class="text-left leading-tight">
+                <span class="text-[11px] font-bold uppercase tracking-wider block">CN, 8h Sáng</span>
+                <span class="text-[10px] text-gray-400">Ngày 18/10</span>
+              </div>
+              <span class="text-[10px] font-semibold text-gray-500">Mời Cỗ & Lễ Cưới</span>
+            </label>
+
+            <!-- 3. Sắp xếp đến -->
             <label class="session-card cursor-pointer border-2 border-gray-200 bg-white text-gray-700 p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-xs hover:border-wedding-red">
               <input type="radio" name="weddingSession" value="Mình sẽ cố gắng sắp xếp đến" class="hidden">
               <span class="text-[11px] font-bold tracking-wide">Mình sẽ cố gắng sắp xếp đến</span>
@@ -817,8 +917,8 @@
         <div>
           <label class="block text-[11px] font-semibold uppercase text-gray-700 mb-1">Lời chúc mừng</label>
           <textarea id="guestWishes" rows="2" 
-                    placeholder="Chúc 2 bạn hạnh phúc viên mãn"
-                    class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-wedding-cream/30 placeholder:text-gray-400/80 placeholder:italic"></textarea>
+                    placeholder="Chúc 2 bạn hạnh phúc viên mãn" 
+                    class="w-full px-3.5 py-2 border border-wedding-gold/40 rounded-xl focus:outline-none focus:border-wedding-red text-xs bg-white/80 placeholder:text-gray-400/80 placeholder:italic shadow-inner"></textarea>
         </div>
 
         <button type="submit" id="submitBtn" class="btn-wedding-gold btn-shimmer w-full py-3.5 text-wedding-red font-serif font-bold rounded-xl shadow-lg uppercase tracking-wider text-xs flex items-center justify-center gap-2 cursor-pointer relative overflow-hidden">
@@ -1661,14 +1761,26 @@
           const sub = c.querySelector('div span:last-child');
           if (sub) sub.className = "text-[10px] text-gray-400";
           const check = c.querySelector('span:last-child');
-          if (check) check.className = "text-[10px] font-semibold text-gray-500";
+          if (check) {
+            check.className = "text-[10px] font-semibold text-gray-500";
+            check.innerText = check.innerText.replace('✓ ', '');
+          }
+          const radio = c.querySelector('input[type="radio"]');
+          if (radio) radio.checked = false;
         });
         
         card.className = "session-card cursor-pointer border-2 border-wedding-red bg-wedding-red text-white p-2.5 rounded-xl text-center transition-all flex items-center justify-between px-3 shadow-sm";
         const activeSub = card.querySelector('div span:last-child');
         if (activeSub) activeSub.className = "text-[10px] text-amber-200";
         const activeCheck = card.querySelector('span:last-child');
-        if (activeCheck) activeCheck.className = "text-[10px] font-semibold text-white";
+        if (activeCheck) {
+          activeCheck.className = "text-[10px] font-semibold text-white";
+          if (!activeCheck.innerText.startsWith('✓')) {
+            activeCheck.innerText = '✓ ' + activeCheck.innerText;
+          }
+        }
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
       });
     });
 
